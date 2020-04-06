@@ -25,8 +25,8 @@ visible_state_bleeding(bleeding).
 visible_state_visible_fracture(fracture).
 
 
-% preventive_examination(Age,Pa,Ea,Fa,Vs,Type)
-% Age - godiste pacijenta, Pa - Licna anamneza, Ea - Prethodna anamneza, Fa - nasledjena anamneza, Vs- vidljivo stanje, Type - tip preventivnog pregleda
+% preventive_examination(Age,Db,Metal,Anom,Sw,Bl,Vf,Type)
+% Age - broj godina pacijenta, Db - dijabetes, Metal - metalni deo ugradjen u telo(npr. metalni kuk), Anom - anomalije, Sw - otok, Bl - krvarenje, Vf - fraktura, Type - tip preventivnog pregleda
 
 
 
