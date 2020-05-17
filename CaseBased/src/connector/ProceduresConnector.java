@@ -33,6 +33,8 @@ public Collection<CBRCase> retrieveAllCases() {
 				CBRCase cbrCase = new CBRCase();
 
 				Procedures procedure = new Procedures();
+				procedure.setProcedure(values[1]);
+				procedure.setSympton(values[0]);
 				
 				// TODO
 				
