@@ -34,6 +34,8 @@ public class SymptomeConnector implements Connector{
 				CBRCase cbrCase = new CBRCase();
 
 				Symptome symptoms = new Symptome();
+				symptoms.setSymptome(values[0]);
+				symptoms.setPotentialDiagnose(values[1]);
 				
 				// TODO
 				
