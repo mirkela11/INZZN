@@ -19,7 +19,7 @@ public class MedicamentConnector implements Connector{
 		LinkedList<CBRCase> cases = new LinkedList<CBRCase>();
 		
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("data/example.csv")));
+			BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("data/Medicaments.csv")));
 			if (br == null)
 				throw new Exception("Error opening file");
 
