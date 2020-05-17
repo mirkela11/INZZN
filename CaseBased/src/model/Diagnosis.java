@@ -45,8 +45,17 @@ public class Diagnosis implements CaseComponent{
 
 	@Override
 	public Attribute getIdAttribute() {
-		return new Attribute("id",this.getClass());
+		return null;
+}
+
+
+	@Override
+	public String toString() {
+		return "Diagnosis [diagnosis=" + diagnosis + ", symptom=" + symptom + "]";
 	}
+	
+	
+	
 
 	
 }
