@@ -17,6 +17,7 @@ import ucm.gaia.jcolibri.util.FileIO;
 public class DiagnosisConnector implements Connector {
 
 	public Collection<CBRCase> retrieveAllCases() {
+		
 		LinkedList<CBRCase> cases = new LinkedList<CBRCase>();
 		
 		try {
