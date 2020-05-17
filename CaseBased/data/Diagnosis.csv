@@ -1,0 +1,51 @@
+% diagnosis, sympthom that have
+
+fracture_of_the_arm; arm_pain
+fracture_of_the_arm; wrist_pain
+fracture_of_the_arm; elbow_pain
+fracture_of_the_arm; shoulder_pain
+fracture_of_the_arm; wrist_swelling
+fracture_of_the_arm; arm_swelling
+fracture_of_the_arm; elbow_swelling
+fracture_of_the_arm; arm_stiffness_or_tightness
+fracture_of_the_arm; wrist_stiffness_or_tightness
+fracture_of_the_arm; shoulder_stiffness_tightness
+fracture_of_the_arm; elbow_stiffness_or_tightness
+
+fracture_of_the_hand; hand_or_finger_pain
+fracture_of_the_hand; wrist_pain
+fracture_of_the_hand; hand_or_finger_swelling
+fracture_of_the_hand; arm_pain
+fracture_of_the_hand; wrist_swelling
+fracture_of_the_hand; arm_stiffness_or_tightness
+fracture_of_the_hand; arm_swelling
+fracture_of_the_hand; hand_or_finger_stiffness_or_tigtness
+fracture_of_the_hand; wrist_stiffnes_or_tightness
+
+fracture_of_the_ankle; ankle_pain
+fracture_of_the_ankle; ankle_swelling
+fracture_of_the_ankle; leg_pain
+fracture_of_the_ankle; foot_or_toe_pain
+fracture_of_the_ankle; foot_or_toe_swelling
+fracture_of_the_ankle; ankle_weakness
+fracture_of_the_ankle; knee_weakness
+
+fracture_of_the_leg; hip_pain
+fracture_of_the_leg; leg_pain
+fracture_of_the_leg; knee_pain
+fracture_of_the_leg; ankle_pain
+fracture_of_the_leg; problems_with_movement
+fracture_of_the_leg; leg_swelling
+fracture_of_the_leg; knee_swelling
+fracture_of_the_leg; ankle_swelling
+fracture_of_the_leg; leg_stiffness_or_tightness
+fracture_of_the_leg; leg_weakness
+fracture_of_the_leg; knee_weakness
+fracture_of_the_leg; hip_stiffness_or_tightness
+
+fracture_of_the_foot; foot_or_toe_pain
+fracture_of_the_foot; ankle_pain
+fracture_of_the_foot; foot_or_toe_swelling
+fracture_of_the_foot; ankle_swelling
+fracture_of_the_foot; foot_or_toe_weakness
+fracture_of_the_foot; foot_or_toe_stiffness_or_tightness
