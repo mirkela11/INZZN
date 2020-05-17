@@ -1,32 +1,30 @@
-# diagnose; medicament
-
-fracture_of_the_arm; ketamine
-fracture_of_the_arm; flumazenil
-fracture_of_the_arm; methohexital
-fracture_of_the_arm; carboprost
-fracture_of_the_arm; digitoxin
-fracture_of_the_arm; etomidate
-fracture_of_the_arm; fluorides
-fracture_of_the_arm; fenoprofen
-fracture_of_the_arm; plasma_protein_fraction
-fracture_of_the_hand; carteolol
-fracture_of_the_hand; disopyramide
-fracture_of_the_hand; magnesium_amino_acid_chelate
-fracture_of_the_ankle; potassium_bicarbonate
-fracture_of_the_ankle; flumazehil
-fracture_of_the_ankle; butalbital
-fracture_of_the_leg; darifenacin
-fracture_of_the_leg; guanfacine
-fracture_of_the_leg; vitamin_k1
-fracture_of_the_leg; dalteparin
-fracture_of_the_leg; lvp_solution
-fracture_of_the_leg; fonaparinux
-fracture_of_the_leg; dronedarone
-fracture_of_the_leg; plasma_protein_fraction
-fracture_of_the_leg; levobunolol
-fracture_of_the_leg; loctobacilius_acidophilus_and_bulgaricus
-(racture_of_the_foot; hyaluronidase
-fracture_of_the_foot; deferoxamine
-fracture_of_the_foot; diflorasone_topical
-fracture_of_the_foot; oxacilin
-
+#diagnose;medicament
+fracture_of_the_arm;ketamine
+fracture_of_the_arm;flumazenil
+fracture_of_the_arm;methohexital
+fracture_of_the_arm;carboprost
+fracture_of_the_arm;digitoxin
+fracture_of_the_arm;etomidate
+fracture_of_the_arm;fluorides
+fracture_of_the_arm;fenoprofen
+fracture_of_the_arm;plasma_protein_fraction
+fracture_of_the_hand;carteolol
+fracture_of_the_hand;disopyramide
+fracture_of_the_hand;magnesium_amino_acid_chelate
+fracture_of_the_ankle;potassium_bicarbonate
+fracture_of_the_ankle;flumazehil
+fracture_of_the_ankle;butalbital
+fracture_of_the_leg;darifenacin
+fracture_of_the_leg;guanfacine
+fracture_of_the_leg;vitamin_k1
+fracture_of_the_leg;dalteparin
+fracture_of_the_leg;lvp_solution
+fracture_of_the_leg;fonaparinux
+fracture_of_the_leg;dronedarone
+fracture_of_the_leg;plasma_protein_fraction
+fracture_of_the_leg;levobunolol
+fracture_of_the_leg;loctobacilius_acidophilus_and_bulgaricus
+(racture_of_the_foot;hyaluronidase
+fracture_of_the_foot;deferoxamine
+fracture_of_the_foot;diflorasone_topical
+fracture_of_the_foot;oxacilin
