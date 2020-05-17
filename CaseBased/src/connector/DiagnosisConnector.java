@@ -35,7 +35,8 @@ public class DiagnosisConnector implements Connector {
 
 				Diagnosis diagnosis = new Diagnosis();
 				
-				// TODO
+				diagnosis.setDiagnosis(values[0]);
+				diagnosis.setSymptom(values[1]);
 				
 				cbrCase.setDescription(diagnosis);
 				cases.add(cbrCase);

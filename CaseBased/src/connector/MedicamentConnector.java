@@ -33,7 +33,8 @@ public class MedicamentConnector implements Connector{
 
 				Medicaments medicament = new Medicaments();
 				
-				// TODO
+				medicament.setDiagnose(values[0]);
+				medicament.setMedicament(values[1]);
 				
 				cbrCase.setDescription(medicament);
 				cases.add(cbrCase);
