@@ -12,6 +12,8 @@ import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
 import ucm.gaia.jcolibri.cbrcore.Connector;
 import ucm.gaia.jcolibri.exception.InitializingException;
 import ucm.gaia.jcolibri.util.FileIO;
+import util.StringListMapper;
+
 
 public class ProceduresConnector implements Connector {
 	
@@ -32,12 +34,10 @@ public Collection<CBRCase> retrieveAllCases() {
 
 				CBRCase cbrCase = new CBRCase();
 
-				Procedures procedure = new Procedures();
-				procedure.setProcedure(values[1]);
-				procedure.setSympton(values[0]);
-				
-				// TODO
-				
+				Procedures procedure = new Procedures();		
+				procedure.setSympton(values[0]);			
+				procedure.setProcedures(StringListMapper.toList(values[1]));
+						
 				cbrCase.setDescription(procedure);
 				cases.add(cbrCase);
 			}
