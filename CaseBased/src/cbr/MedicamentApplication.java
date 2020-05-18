@@ -56,6 +56,7 @@ public class MedicamentApplication {
 	public CBRCaseBase preCycle() throws ExecutionException {
 		_caseBase.init(_connector);
 		Collection<CBRCase> cases = _caseBase.getCases();
+		System.out.println("\n");
 		for (CBRCase c: cases)
 			System.out.println(c.getDescription());
 		return _caseBase;
