@@ -12,6 +12,7 @@ import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
 import ucm.gaia.jcolibri.cbrcore.Connector;
 import ucm.gaia.jcolibri.exception.InitializingException;
 import ucm.gaia.jcolibri.util.FileIO;
+import util.StringListMapper;
 
 public class MedicamentConnector implements Connector{
 
@@ -34,7 +35,7 @@ public class MedicamentConnector implements Connector{
 				Medicaments medicament = new Medicaments();
 				
 				medicament.setDiagnose(values[0]);
-				medicament.setMedicament(values[1]);
+				medicament.setMedicament(StringListMapper.toList(values[1]));
 				
 				cbrCase.setDescription(medicament);
 				cases.add(cbrCase);
