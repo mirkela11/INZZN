@@ -12,3 +12,4 @@ public class StringListMapper {
         return Arrays.asList(string.split(","));
     }
 }
+

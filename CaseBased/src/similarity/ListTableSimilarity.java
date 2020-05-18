@@ -1,9 +1,12 @@
 package similarity;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 import ucm.gaia.jcolibri.exception.NoApplicableSimilarityFunctionException;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.LocalSimilarityFunction;
+
 
 public class ListTableSimilarity implements LocalSimilarityFunction {
 
@@ -22,3 +25,4 @@ public class ListTableSimilarity implements LocalSimilarityFunction {
                 && ((List) value1).get(0) instanceof String && ((List) value1).get(0) instanceof String;
     }
 }
+

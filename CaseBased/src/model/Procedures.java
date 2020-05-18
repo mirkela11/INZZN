@@ -1,22 +1,30 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ucm.gaia.jcolibri.cbrcore.Attribute;
 import ucm.gaia.jcolibri.cbrcore.CaseComponent;
+import util.StringListMapper;
 
 public class Procedures implements CaseComponent {
 	
 	private String sympton;
-	private String procedure;
+	private List<String> procedures;
 	
+	
+
 	public Procedures() {
 		super();
 	}
 
-	public Procedures(String sympton, String procedure) {
+	public Procedures(String sympton, List<String> procedures) {
 		super();
 		this.sympton = sympton;
-		this.procedure = procedure;
+		this.procedures = procedures;
 	}
+	
+	
 
 	public String getSympton() {
 		return sympton;
@@ -26,19 +34,26 @@ public class Procedures implements CaseComponent {
 		this.sympton = sympton;
 	}
 
-	public String getProcedure() {
-		return procedure;
+	public List<String> getProcedures() {
+		return procedures;
 	}
 
-	public void setProcedure(String procedure) {
-		this.procedure = procedure;
+	public void setProcedures(List<String> procedures) {
+		this.procedures = procedures;
 	}
 
 	@Override
 	public Attribute getIdAttribute() {
-		return new Attribute("id",this.getClass());
+		return null;
 	}
 	
+	@Override
+    public String toString() {
+        String retVal = StringListMapper.toString(procedures);
+        if (sympton != null && sympton.length() > 0)
+            retVal += " => " + sympton;
+        return retVal;
+    }
 	
 
 }
