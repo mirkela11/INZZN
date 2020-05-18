@@ -1,18 +1,20 @@
 package model;
 
+import java.util.List;
+
 import ucm.gaia.jcolibri.cbrcore.Attribute;
 import ucm.gaia.jcolibri.cbrcore.CaseComponent;
 
 public class Medicaments implements CaseComponent{
 
 	private String diagnose;
-	private String medicament;
+	private List<String> medicament;
 		
 	public Medicaments() {
 		super();
 	}
 	
-	public Medicaments(String diagnose, String medicament) {
+	public Medicaments(String diagnose, List<String> medicament) {
 		super();
 		this.diagnose = diagnose;
 		this.medicament = medicament;
@@ -27,11 +29,11 @@ public class Medicaments implements CaseComponent{
 		this.diagnose = diagnose;
 	}
 
-	public String getMedicament() {
+	public List<String> getMedicament() {
 		return medicament;
 	}
 
-	public void setMedicament(String medicament) {
+	public void setMedicament(List<String> medicament) {
 		this.medicament = medicament;
 	}
 
@@ -39,6 +41,12 @@ public class Medicaments implements CaseComponent{
 	public Attribute getIdAttribute() {
 		return new Attribute("id",this.getClass());
 	}
+
+	@Override
+	public String toString() {
+		return "Medicaments [diagnose=" + diagnose + ", medicament=" + medicament + "]";
+	}
+	
 	
 	
 }
