@@ -4,11 +4,12 @@ import java.util.List;
 
 import ucm.gaia.jcolibri.cbrcore.Attribute;
 import ucm.gaia.jcolibri.cbrcore.CaseComponent;
+import util.StringListMapper;
 
 public class Diagnosis implements CaseComponent{
 
 	private String diagnosis;
-	private String symptom;
+	private List<String> symptom;
 	
 	
 	public Diagnosis() {
@@ -16,7 +17,7 @@ public class Diagnosis implements CaseComponent{
 	}
 
 
-	public Diagnosis(String diagnosis, String symptom) {
+	public Diagnosis(String diagnosis, List<String> symptom) {
 		super();
 		this.diagnosis = diagnosis;
 		this.symptom = symptom;
@@ -33,12 +34,12 @@ public class Diagnosis implements CaseComponent{
 	}
 
 
-	public String getSymptom() {
+	public List<String> getSymptom() {
 		return symptom;
 	}
 
 
-	public void setSymptom(String symptom) {
+	public void setSymptom(List<String> symptom) {
 		this.symptom = symptom;
 	}
 
@@ -49,10 +50,13 @@ public class Diagnosis implements CaseComponent{
 }
 
 
-	@Override
-	public String toString() {
-		return "Diagnosis [diagnosis=" + diagnosis + ", symptom=" + symptom + "]";
-	}
+	  @Override
+	    public String toString() {
+	        String retVal = StringListMapper.toString(symptom);
+	        if (diagnosis != null && diagnosis.length() > 0)
+	            retVal += " => " + diagnosis;
+	        return retVal;
+	    }
 	
 	
 	
