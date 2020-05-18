@@ -2,6 +2,7 @@ import java.util.Arrays;
 
 import cbr.DiagnosisApplication;
 import cbr.MedicamentApplication;
+import cbr.ProceduresCbrApplication;
 
 public class Main {
 
@@ -15,6 +16,6 @@ public class Main {
 		pca.run(Arrays.asList("radiographic_imaging_procedure","plain_x-ray","electrocardiogram","kidney_function_tests", "intravenous_fluid_replacement","electrolytes_panel","cardiac_enzymes_measurament"));
 	}
 
-    }
 }
+
 
