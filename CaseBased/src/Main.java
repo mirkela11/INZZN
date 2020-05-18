@@ -3,6 +3,7 @@ import java.util.Arrays;
 import cbr.DiagnosisApplication;
 import cbr.MedicamentApplication;
 import cbr.ProceduresCbrApplication;
+import cbr.SymptomeApplication;
 
 public class Main {
 
