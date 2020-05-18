@@ -47,7 +47,7 @@ public class SymptomeApplication implements StandardCBRApplication{
 		// TODO Auto-generated method stub
 		Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), query, simConfig);
 		eval = SelectCases.selectTopKRR(eval, 5);
-		System.out.println("Retrieved cases:");
+		System.out.println("\nRetrieved cases:\n");
 		for (RetrievalResult nse : eval)
 			System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
 	}

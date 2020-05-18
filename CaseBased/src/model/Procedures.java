@@ -51,7 +51,7 @@ public class Procedures implements CaseComponent {
     public String toString() {
         String retVal = StringListMapper.toString(procedures);
         if (sympton != null && sympton.length() > 0)
-            retVal += " => " + sympton;
+            retVal += " -> " + sympton;
         return retVal;
     }
 	
