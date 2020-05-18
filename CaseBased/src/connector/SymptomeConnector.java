@@ -13,6 +13,7 @@ import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
 import ucm.gaia.jcolibri.cbrcore.Connector;
 import ucm.gaia.jcolibri.exception.InitializingException;
 import ucm.gaia.jcolibri.util.FileIO;
+import util.StringListMapper;
 
 public class SymptomeConnector implements Connector{
 	
@@ -35,9 +36,7 @@ public class SymptomeConnector implements Connector{
 
 				Symptome symptoms = new Symptome();
 				symptoms.setSymptome(values[0]);
-				symptoms.setPotentialDiagnose(values[1]);
-				
-				// TODO
+				symptoms.setDiagnose(StringListMapper.toList(values[1]));
 				
 				cbrCase.setDescription(symptoms);
 				cases.add(cbrCase);

@@ -1,29 +1,23 @@
 package model;
 
+import java.util.List;
+
 import ucm.gaia.jcolibri.cbrcore.Attribute;
 import ucm.gaia.jcolibri.cbrcore.CaseComponent;
 
 public class Symptome implements CaseComponent{
 	
-	private String potentialDiagnose;
 	private String symptome;
+	private List<String> diagnose;
 
 	public Symptome() {
 		super();
 	}
 
-	public Symptome(String potentialDiagnose, String symptome) {
+	public Symptome(String symptome, List<String> potential_diagnosis) {
 		super();
-		this.potentialDiagnose = potentialDiagnose;
 		this.symptome = symptome;
-	}
-	
-	public String getPotentialDiagnose() {
-		return potentialDiagnose;
-	}
-
-	public void setPotentialDiagnose(String potentialDiagnose) {
-		this.potentialDiagnose = potentialDiagnose;
+		this.diagnose = potential_diagnosis;
 	}
 
 	public String getSymptome() {
@@ -34,10 +28,23 @@ public class Symptome implements CaseComponent{
 		this.symptome = symptome;
 	}
 
+	public List<String> getDiagnose() {
+		return diagnose;
+	}
+
+	public void setDiagnose(List<String> diagnose) {
+		this.diagnose = diagnose;
+	}
+
 	@Override
 	public Attribute getIdAttribute() {
 		// TODO Auto-generated method stub
-		return new Attribute("id",this.getClass());
+		return null;
+	}
+
+	@Override
+	public String toString() {
+		return "Symptome [symptome=" + symptome + ", potential_diagnosis=" + diagnose + "]";
 	}
 
 }
