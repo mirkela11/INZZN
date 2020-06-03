@@ -2,9 +2,9 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -20,25 +20,27 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JToolBar;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import controller.AboutActionDialog;
 import controller.NewPatientDialogAction;
 import model.Table.PatientBase;
 import model.Table.PatientTable;
-
+import model.Table.PatientTablePanel;
 
 public class MainFrame extends JFrame {
-	
-	private static MainFrame instance = null;
+
+private static MainFrame instance = null;
+
 	
 	private JPanel contentPane;
 	private JLabel logoLabel;
 	private JPanel mainPanel;
+	private PatientTablePanel patientsTablePanel;
 	
 	public static MainFrame getInstance() {
 		if(instance == null) {
@@ -46,8 +48,9 @@ public class MainFrame extends JFrame {
 		}
 		return instance;
 	}
-
+	
 	private MainFrame() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Toolkit kit = Toolkit.getDefaultToolkit();
@@ -58,7 +61,7 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
 		
 		setIconImage(new ImageIcon("images/medCareLogo.png").getImage());
-		setTitle("Dobrodo\u0161li u medCare aplikaciju");
+		setTitle("Dobrodosli u medCare aplikaciju");
 		//setBounds(100, 100, 550, 600);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -67,11 +70,8 @@ public class MainFrame extends JFrame {
 		JMenu patientsMenu = new JMenu("Pacijenti");
 		menuBar.add(patientsMenu);
 		
-		JMenuItem viewPatientsMenuItem = new JMenuItem(("Svi pacijenti"));
-		viewPatientsMenuItem.setIcon(new ImageIcon("images/db_icon&24.png"));
-		patientsMenu.add(viewPatientsMenuItem);
-		
-		JMenuItem newPatientMenuItem = new JMenuItem(new NewPatientDialogAction("Dodavanje novog pacijenta"));
+		JMenuItem newPatientMenuItem = new JMenuItem("Dodavanje novog pacijenta");
+		newPatientMenuItem.addActionListener(new NewPatientDialogAction());
 		newPatientMenuItem.setIcon(new ImageIcon("images/create_icon&24.png"));
 		patientsMenu.add(newPatientMenuItem);
 		
@@ -95,37 +95,12 @@ public class MainFrame extends JFrame {
 		newPatientButton.setText("Novi pacijent");
 		newPatientButton.setIcon(new ImageIcon("images/create_icon&24.png"));
 		toolBar.add(newPatientButton);
+					
+		 mainPanel = new JPanel();
+		 mainPanel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
+		 mainPanel.setLayout(new BorderLayout(0, 0));
+		 contentPane.add(mainPanel, BorderLayout.CENTER);
 		
-		JButton viewPatientsButton = new JButton();
-		viewPatientsButton.setText("Svi pacijenti");
-		viewPatientsButton.setIcon(new ImageIcon("images/db_icon&24.png"));
-		viewPatientsButton.setToolTipText("Svi pacijenti");
-		toolBar.add(viewPatientsButton);
-		
-		JButton btnNewButton = new JButton();
-		btnNewButton.setText("O pacijentu");
-		btnNewButton.setIcon(new ImageIcon("images/info_icon&24.png"));
-		toolBar.add(btnNewButton);
-		
-		
-		mainPanel = new JPanel();
-		mainPanel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		mainPanel.setLayout(new BorderLayout(0, 0));
-		contentPane.add(mainPanel, BorderLayout.CENTER);
-		
-		
-		ImageIcon logoIcon = new ImageIcon ("images/medCareLogo.png");
-		Image image = logoIcon.getImage();
-		Image newImg = image.getScaledInstance(screenWidth/6, screenWidth/6, Image.SCALE_SMOOTH);
-		logoIcon = new ImageIcon(newImg);
-		   
-		logoLabel = new JLabel("");
-		//logoLabel.setIcon(new ImageIcon("images/medCareLogo.png"));
-		logoLabel.setIcon(logoIcon);
-		logoLabel.setHorizontalAlignment(JLabel.CENTER);
-		logoLabel.setVerticalAlignment(JLabel.CENTER);
-				
-		mainPanel.add(logoLabel, BorderLayout.CENTER);
 		
 		//status bar
 		JPanel statusPanel = new JPanel();
@@ -138,7 +113,7 @@ public class MainFrame extends JFrame {
 		infoPanel.setBackground(new Color(240, 248, 255));
 		statusPanel.add(infoPanel, BorderLayout.CENTER);
 		
-		JLabel infoLabel = new JLabel("Dobrodo\u0161li u medCare aplikaciju!");
+		JLabel infoLabel = new JLabel("Dobrododosli u medCare aplikaciju!");
 		infoLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		infoLabel.setForeground(new Color(0, 128, 0));
 		infoPanel.add(infoLabel);
@@ -157,11 +132,81 @@ public class MainFrame extends JFrame {
 		datePanel.add(dateLabel);
 		
 		
+		this.updateMainPanel();
 		
-		     
+		this.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+			
+				PatientBase.getInstance().deserialize();
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				PatientBase.getInstance().serialize();
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	
+	
+		
 	}
 	
+	public void updateMainPanel() {
+		JPanel mainPanel = getMainPanel();
+		mainPanel.removeAll();
+		//mainPanel.repaint();
+		
+		patientsTablePanel = new PatientTablePanel();
+		mainPanel.add(patientsTablePanel, BorderLayout.CENTER);
+		mainPanel.validate();
+		
+		setContentPane(patientsTablePanel);
+		
+	}
 	
+	public void updateMainPanelPatientsTable() {
+		this.patientsTablePanel.refreshData();
+	}
+	
+
+	public PatientTablePanel getPatientsTablePanel() {
+		return patientsTablePanel;
+	}
+
+	public void setPatientsTablePanel(PatientTablePanel patientsTablePanel) {
+		this.patientsTablePanel = patientsTablePanel;
+	}
 
 	public JPanel getContentPane() {
 		return contentPane;

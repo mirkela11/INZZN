@@ -36,11 +36,9 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 		
 		simConfig = new NNConfig(); // KNN configuration
 		simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
-		
-		// simConfig.addMapping(new Attribute("attribute", CaseDescription.class), new Interval(5));
 	
 
-		simConfig.addMapping(new Attribute("procedures", Procedures.class), new ListTableSimilarity());
+		simConfig.addMapping(new Attribute("symptoms", Procedures.class), new ListTableSimilarity());
 		
 		
 	}
@@ -48,7 +46,7 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 
 	public void cycle(CBRQuery query) throws ExecutionException {
 		Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), query, simConfig);
-		eval = SelectCases.selectTopKRR(eval, 5);
+		eval = SelectCases.selectTopKRR(eval, 10);
 		System.out.println("Retrieved cases:");
 		for (RetrievalResult nse : eval)
 			System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
@@ -66,7 +64,7 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 		return _caseBase;
 	}
 	
-	public void run(List<String> procedures) {
+	public void run(List<String> symptoms) {
 		StandardCBRApplication recommender = new ProceduresCbrApplication();
 		try {
 			recommender.configure();
@@ -77,7 +75,7 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 
 			Procedures p = new Procedures();
 
-			p.setProcedures(procedures);
+			p.setSymptoms(symptoms);
 
 			query.setDescription(p);
 

@@ -10,8 +10,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import controller.PatientController;
 import model.Patient;
+import view.MainFrame;
 
 public class PatientBase implements Serializable {
 
@@ -62,7 +62,7 @@ public class PatientBase implements Serializable {
 	}
 	
 	public int getColumnCount() {
-		return 6;
+		return columns.size();
 	}
 	
 	public String getColumnName(int index) {
@@ -134,8 +134,8 @@ public class PatientBase implements Serializable {
 			ObjectInputStream profIn= new ObjectInputStream(fProf);
 			ArrayList<Patient> patients = (ArrayList<Patient>) profIn.readObject();
 			PatientBase.getInstance().setPatients(patients);
-			PatientController.getInstance().afterDeserilazie();
-			
+			MainFrame.getInstance().updateMainPanelPatientsTable();
+			System.out.println(patients.toString());
 			fProf.close();
 			profIn.close();
 		}catch (IOException ie) {

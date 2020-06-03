@@ -1,9 +1,11 @@
 package model;
 
 import java.beans.Transient;
+import java.io.Serializable;
 import java.util.Vector;
 
-public class Patient {
+
+public class Patient implements Serializable {
 
 	private int id;
 	private String firstName;

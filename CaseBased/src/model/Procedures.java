@@ -9,8 +9,8 @@ import util.StringListMapper;
 
 public class Procedures implements CaseComponent {
 	
-	private String sympton;
-	private List<String> procedures;
+	private List<String> symptoms;
+	private String procedure;
 	
 	
 
@@ -18,42 +18,55 @@ public class Procedures implements CaseComponent {
 		super();
 	}
 
-	public Procedures(String sympton, List<String> procedures) {
+	
+	
+	public Procedures(List<String> symptoms, String procedure) {
 		super();
-		this.sympton = sympton;
-		this.procedures = procedures;
-	}
-	
-	
-
-	public String getSympton() {
-		return sympton;
+		this.symptoms = symptoms;
+		this.procedure = procedure;
 	}
 
-	public void setSympton(String sympton) {
-		this.sympton = sympton;
+
+
+	public List<String> getSymptoms() {
+		return symptoms;
 	}
 
-	public List<String> getProcedures() {
-		return procedures;
+
+
+	public void setSymptoms(List<String> symptoms) {
+		this.symptoms = symptoms;
 	}
 
-	public void setProcedures(List<String> procedures) {
-		this.procedures = procedures;
+
+
+	public String getProcedure() {
+		return procedure;
 	}
+
+
+
+	public void setProcedure(String procedure) {
+		this.procedure = procedure;
+	}
+
+
+
+	@Override
+    public String toString() {
+        String retVal = StringListMapper.toString(symptoms);
+        if (procedure != null && procedure.length() > 0)
+            retVal += " => " + procedure;
+        return retVal;
+    }
+
+
 
 	@Override
 	public Attribute getIdAttribute() {
+		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	@Override
-    public String toString() {
-        String retVal = StringListMapper.toString(procedures);
-        if (sympton != null && sympton.length() > 0)
-            retVal += " => " + sympton;
-        return retVal;
-    }
 	
 
 }

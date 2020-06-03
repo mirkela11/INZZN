@@ -20,6 +20,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import model.Patient;
+import model.Table.PatientBase;
+import model.Table.PatientTable;
+import view.MainFrame;
+
 public class NewPatientDialog extends JDialog {
 	
 	private JPanel contentPanel = new JPanel();
@@ -48,7 +53,25 @@ public class NewPatientDialog extends JDialog {
 	}
 
 	public void addActionListeners() {
-		//Da se odradi sa dodavanje pacijenta funkcija
+		addPatientButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub			
+				
+				String firstName = firstNameTextField.getText().trim();
+				String lastName = lastNameTextField.getText().trim();
+				String address = addressTextField.getText().trim();
+				String phoneNumber = telephoneNumberTextField.getText().trim();
+				String jmbg = jmbgTextField.getText().trim();
+				String dateOfBirth = dateOfBirthDateField.getText().trim();
+				
+				PatientBase.getInstance().addPatient(firstName, lastName, jmbg, dateOfBirth, address, phoneNumber);
+				
+				MainFrame.getInstance().updateMainPanelPatientsTable();
+				dispose();
+			}
+		});
 	}
 	
 	public void initComponents() {

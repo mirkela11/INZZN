@@ -35,8 +35,8 @@ public Collection<CBRCase> retrieveAllCases() {
 				CBRCase cbrCase = new CBRCase();
 
 				Procedures procedure = new Procedures();		
-				procedure.setSympton(values[0]);			
-				procedure.setProcedures(StringListMapper.toList(values[1]));
+				procedure.setSymptoms(StringListMapper.toList(values[0]));			
+				procedure.setProcedure(values[1]);
 						
 				cbrCase.setDescription(procedure);
 				cases.add(cbrCase);

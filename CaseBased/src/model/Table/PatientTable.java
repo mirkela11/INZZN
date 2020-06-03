@@ -1,28 +1,74 @@
 package model.Table;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
-import javax.swing.JTable;
-import javax.swing.table.TableRowSorter;
+import java.util.List;
 
-public class PatientTable extends JTable {
+
+import javax.swing.table.DefaultTableModel;
+
+
+import model.Patient;
+
+public class PatientTable extends DefaultTableModel  {
 	
-	private static PatientTable instance = null;
-	
-	public static PatientTable getInstance() {
-		if(instance == null) {
-			instance = new PatientTable();
-		}
-		return instance;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<PatientTableModelRow> rowsData; 
+
+	public PatientTable(){
+		this.rowsData = new ArrayList<PatientTableModelRow>();
+		initTableHeader();
+		collectData();
 	}
 	
-	private TableRowSorter<AbstractTableModelPatient> sorter;
+	private void initTableHeader(){
+		//Inicijalizacija kolona
+		addColumn("Id");
+		addColumn("Ime");
+		addColumn("Prezime");
+		addColumn("Datum rodjenja");
+		addColumn("Jmbg");
+		addColumn("Adresa");
+		addColumn("Broj telefona");
+	}
 	
-	private PatientTable() {
-		this.setModel(new AbstractTableModelPatient());
-		sorter = new TableRowSorter<>((AbstractTableModelPatient) getModel());
-		this.setRowSorter(sorter);
+	public void collectData() {
+		setRowCount(0);
+		List<Patient> patients = PatientBase.getInstance().getPatients();
+		for(Patient p: patients) {
+			PatientTableModelRow ptr = new PatientTableModelRow(p);
+			rowsData.add(ptr);
+			addRow(ptr.addRowToTable());
+		}
+	}
+	
+	public void refreshData() {
+		this.rowsData = new ArrayList<PatientTableModelRow>();
+		collectData();
+	}
+	
+	public void create() {
+		
+	}
+	
+	public void read() {
+		
+	}
+	
+	public void update() {
+		
+	}
+	
+	public PatientTableModelRow getSelectedRow(int selectedIndex) {
+		return rowsData.get(selectedIndex);
+	}
+	
+	@Override
+	public boolean isCellEditable(int arg0, int arg1) {
+		return false;	
 	}
 	
 }
