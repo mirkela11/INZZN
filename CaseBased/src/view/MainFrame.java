@@ -28,6 +28,7 @@ import javax.swing.border.LineBorder;
 
 import controller.AboutActionDialog;
 import controller.NewPatientDialogAction;
+import model.Patient;
 import model.Table.PatientBase;
 import model.Table.PatientTable;
 import model.Table.PatientTablePanel;
@@ -41,6 +42,7 @@ private static MainFrame instance = null;
 	private JLabel logoLabel;
 	private JPanel mainPanel;
 	private PatientTablePanel patientsTablePanel;
+	Patient current;
 	
 	public static MainFrame getInstance() {
 		if(instance == null) {
@@ -100,37 +102,7 @@ private static MainFrame instance = null;
 		 mainPanel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		 mainPanel.setLayout(new BorderLayout(0, 0));
 		 contentPane.add(mainPanel, BorderLayout.CENTER);
-		
-		
-		//status bar
-		JPanel statusPanel = new JPanel();
-		statusPanel.setBackground(Color.DARK_GRAY);
-		statusPanel.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		contentPane.add(statusPanel, BorderLayout.SOUTH);
-		statusPanel.setLayout(new BorderLayout(0, 0));
-		
-		JPanel infoPanel = new JPanel();
-		infoPanel.setBackground(new Color(240, 248, 255));
-		statusPanel.add(infoPanel, BorderLayout.CENTER);
-		
-		JLabel infoLabel = new JLabel("Dobrododosli u medCare aplikaciju!");
-		infoLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		infoLabel.setForeground(new Color(0, 128, 0));
-		infoPanel.add(infoLabel);
-		
-		JPanel datePanel = new JPanel();
-		statusPanel.add(datePanel, BorderLayout.EAST);
-		
-		// Formatiranje i preuzimanje trenutnog datuma
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
-		LocalDate localDate = LocalDate.now();
-		
-		JLabel dateLabel = new JLabel(dtf.format(localDate));
-		dateLabel.setHorizontalAlignment(JLabel.CENTER);
-		dateLabel.setVerticalAlignment(JLabel.CENTER);
-		dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		datePanel.add(dateLabel);
-		
+
 		
 		this.updateMainPanel();
 		
@@ -183,20 +155,16 @@ private static MainFrame instance = null;
 	}
 	
 	public void updateMainPanel() {
-		JPanel mainPanel = getMainPanel();
-		mainPanel.removeAll();
-		//mainPanel.repaint();
-		
-		patientsTablePanel = new PatientTablePanel();
-		mainPanel.add(patientsTablePanel, BorderLayout.CENTER);
-		mainPanel.validate();
-		
+
+		this.patientsTablePanel = new PatientTablePanel();
+		// this.patientsTablePanel.refreshData();
 		setContentPane(patientsTablePanel);
 		
 	}
 	
 	public void updateMainPanelPatientsTable() {
 		this.patientsTablePanel.refreshData();
+		
 	}
 	
 
@@ -230,6 +198,14 @@ private static MainFrame instance = null;
 
 	public void setMainPanel(JPanel mainPanel) {
 		this.mainPanel = mainPanel;
+	}
+
+	public Patient getCurrent() {
+		return current;
+	}
+
+	public void setCurrent(Patient current) {
+		this.current = current;
 	}
 	
 	

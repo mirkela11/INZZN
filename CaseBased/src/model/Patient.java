@@ -102,7 +102,7 @@ public class Patient implements Serializable {
 		+ phoneNumber + "]";
 	}
 	
-	private void createVectorOfData() {
+	public void createVectorOfData() {
 		Vector<Object> objects = new Vector<Object>();
 		objects.add(getId());
 		objects.add(getFirstName());

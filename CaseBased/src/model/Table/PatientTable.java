@@ -50,17 +50,6 @@ public class PatientTable extends DefaultTableModel  {
 		collectData();
 	}
 	
-	public void create() {
-		
-	}
-	
-	public void read() {
-		
-	}
-	
-	public void update() {
-		
-	}
 	
 	public PatientTableModelRow getSelectedRow(int selectedIndex) {
 		return rowsData.get(selectedIndex);

@@ -28,13 +28,13 @@ import view.MainFrame;
 public class NewPatientDialog extends JDialog {
 	
 	private JPanel contentPanel = new JPanel();
-	private JTextField firstNameTextField;
-	private JTextField lastNameTextField;
-	private JTextField jmbgTextField;
-	private JTextField addressTextField;
-	private JTextField telephoneNumberTextField;
-	private JTextField dateTextField;
-	private JTextField dateOfBirthDateField;
+	protected JTextField firstNameTextField;
+	protected JTextField lastNameTextField;
+	protected JTextField jmbgTextField;
+	protected JTextField addressTextField;
+	protected JTextField telephoneNumberTextField;
+	protected JTextField dateTextField;
+	protected JTextField dateOfBirthDateField;
 	private JLabel firstNameLabel;
 	private JLabel lastNameLabel;
 	private JLabel jmbgLabel;
@@ -254,4 +254,63 @@ public class NewPatientDialog extends JDialog {
 			}
 		});
 	}
+
+	public String getFirstNameTextField() {
+		return firstNameTextField.getText();
+	}
+
+	public void setFirstNameTextField(String firstNameTextField) {
+		this.firstNameTextField.setText(firstNameTextField);
+	}
+
+	public String getLastNameTextField() {
+		return lastNameTextField.getText();
+	}
+
+	public void setLastNameTextField(String lastNameTextField) {
+		this.lastNameTextField.setText(lastNameTextField);
+	}
+
+	public String getJmbgTextField() {
+		return jmbgTextField.getText();
+	}
+
+	public void setJmbgTextField(String jmbgTextField) {
+		this.jmbgTextField.setText(jmbgTextField);
+	}
+
+	public String getAddressTextField() {
+		return addressTextField.getText();
+	}
+
+	public void setAddressTextField(String addressTextField) {
+		this.addressTextField.setText(addressTextField);
+	}
+
+	public String getTelephoneNumberTextField() {
+		return telephoneNumberTextField.getText();
+	}
+
+	public void setTelephoneNumberTextField(String telephoneNumberTextField) {
+		this.telephoneNumberTextField.setText(telephoneNumberTextField);
+	}
+
+	public String getDateTextField() {
+		return dateTextField.getText();
+	}
+
+	public void setDateTextField(String dateTextField) {
+		this.dateOfBirthDateField.setText(dateTextField);
+	}
+
+	public JButton getAddPatientButton() {
+		return addPatientButton;
+	}
+
+	public void setAddPatientButton(JButton addPatientButton) {
+		this.addPatientButton = addPatientButton;
+	}
+	
+	
+	
 }

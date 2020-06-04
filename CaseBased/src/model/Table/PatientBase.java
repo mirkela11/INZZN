@@ -24,33 +24,14 @@ public class PatientBase implements Serializable {
 		return instance;
 	}
 	
-	private ArrayList<String> columns;
 	private ArrayList<Patient> patients;
 	
 	private PatientBase() {
-		initBase();
-		this.columns = new ArrayList<String>();
-		this.columns.add("Ime");
-		this.columns.add("Prezime");
-		this.columns.add("Jmbg");
-		this.columns.add("Datum rodjenja");
-		this.columns.add("Adresa");
-		this.columns.add("Telefon");
-		
+		initBase();		
 	}
 	
 	private void initBase() {
 		this.patients = new ArrayList<Patient>();
-		patients.add(new Patient(1,"Veljko", "Vukovic","1234567891234", "12.10.1997", "Stojana Novakovica 44", "123456"));
-		patients.add(new Patient(2,"Marko", "Markovic","9876543216541", "5.12.1990", "Mike Mikica 22", "180565"));
-	}
-
-	public ArrayList<String> getColumns() {
-		return columns;
-	}
-
-	public void setColumns(ArrayList<String> columns) {
-		this.columns = columns;
 	}
 
 	public ArrayList<Patient> getPatients() {
@@ -59,31 +40,6 @@ public class PatientBase implements Serializable {
 
 	public void setPatients(ArrayList<Patient> patients) {
 		this.patients = patients;
-	}
-	
-	public int getColumnCount() {
-		return columns.size();
-	}
-	
-	public String getColumnName(int index) {
-		return this.columns.get(index);
-	}
-	
-	public Patient getRow(int rowIndex) {
-		return this.patients.get(rowIndex);
-	}
-	
-	public String getValueAt(int row, int column) {
-		Patient patient = this.patients.get(row);
-		switch(column) {
-		case 0: return patient.getFirstName();
-		case 1: return patient.getLastName();
-		case 2: return patient.getJmbg();
-		case 3: return patient.getDateOfBirth();
-		case 4: return patient.getAddress();
-		case 5: return patient.getPhoneNumber();
-		default: return null;
-		}
 	}
 	
 	public void addPatient(String firstName, String lastname, String jmbg, String dateOfBirth, String address, String phoneNumber) {
@@ -112,6 +68,8 @@ public class PatientBase implements Serializable {
 		p.setDateOfBirth(dateOfBirth);
 		p.setAddress(address);
 		p.setPhoneNumber(phoneNumber);
+		p.createVectorOfData();
+		
 	}
 	
 	public void serialize() {
