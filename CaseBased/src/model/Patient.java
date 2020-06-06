@@ -14,6 +14,7 @@ public class Patient implements Serializable {
 	private String dateOfBirth;
 	private String address;
 	private String phoneNumber;
+	private MedicalRecord mr;
 	
 	private Vector<Object> structuredData;
 	
@@ -24,7 +25,7 @@ public class Patient implements Serializable {
 	
 	
 	public Patient(int id, String firstName, String lastName, String jmbg, String dateOfBirth, String address,
-			String phoneNumber) {
+			String phoneNumber, MedicalRecord mr) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -33,6 +34,7 @@ public class Patient implements Serializable {
 		this.dateOfBirth = dateOfBirth;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
+		this.mr = mr;
 		createVectorOfData();
 	}
 
@@ -81,6 +83,19 @@ public class Patient implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
+	
+
+	public MedicalRecord getMr() {
+		return mr;
+	}
+
+
+
+	public void setMr(MedicalRecord mr) {
+		this.mr = mr;
+	}
+
+
 
 	public Vector<Object> getStructuredData() {
 		return structuredData;
@@ -99,7 +114,7 @@ public class Patient implements Serializable {
 		// TODO Auto-generated method stub
 		return "Patient [patientId=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", jmbg="
 		+ jmbg + ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", telephoneNumber="
-		+ phoneNumber + "]";
+		+ phoneNumber + " ,medicalRecord=" + mr + "]";
 	}
 	
 	public void createVectorOfData() {
@@ -111,6 +126,7 @@ public class Patient implements Serializable {
 		objects.add(getJmbg());
 		objects.add(getAddress());
 		objects.add(getPhoneNumber());
+		objects.add(getMr());
 		setStructuredData(objects);
 	}
 	

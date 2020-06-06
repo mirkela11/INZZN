@@ -19,7 +19,7 @@ public class PatientDialog extends NewPatientDialog {
 		this.patient = p;
 		this.pf = pf;
 		
-		setTitle("Izmena pacijenta informacija o pacijentu");
+		setTitle("Izmena informacija o pacijentu");
 		setLocationRelativeTo(null);
 		firstNameTextField.setText(patient.getFirstName());
 		lastNameTextField.setText(patient.getLastName());
@@ -37,7 +37,7 @@ public class PatientDialog extends NewPatientDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				PatientBase.getInstance().editPatient(patient.getId(), firstNameTextField.getText(), lastNameTextField.getText(), addressTextField.getText(), dateOfBirthDateField.getText(), addressTextField.getText(), telephoneNumberTextField.getText());
+				PatientBase.getInstance().editPatient(patient.getId(), firstNameTextField.getText(), lastNameTextField.getText(), addressTextField.getText(), dateOfBirthDateField.getText(), addressTextField.getText(), telephoneNumberTextField.getText(),patient.getMr());
 				MainFrame.getInstance().updateMainPanelPatientsTable();
 				dispose();
 				

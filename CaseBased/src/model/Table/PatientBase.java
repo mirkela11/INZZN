@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import model.MedicalRecord;
 import model.Patient;
 import view.MainFrame;
 
@@ -43,7 +44,8 @@ public class PatientBase implements Serializable {
 	}
 	
 	public void addPatient(String firstName, String lastname, String jmbg, String dateOfBirth, String address, String phoneNumber) {
-		Patient p = new Patient(patients.size()+1,firstName,lastname,jmbg,dateOfBirth,address,phoneNumber);
+		MedicalRecord mr = new MedicalRecord();
+		Patient p = new Patient(patients.size()+1,firstName,lastname,jmbg,dateOfBirth,address,phoneNumber, mr);
 		this.patients.add(p);
 	}
 	public void deletePatient(int id) {
@@ -60,7 +62,7 @@ public class PatientBase implements Serializable {
 		return null;
 	}
 	
-	public void editPatient(int id,String firstName, String lastname, String jmbg, String dateOfBirth, String address, String phoneNumber) {
+	public void editPatient(int id,String firstName, String lastname, String jmbg, String dateOfBirth, String address, String phoneNumber, MedicalRecord mr) {
 		Patient p = findPatientById(id);
 		p.setFirstName(firstName);
 		p.setLastName(lastname);
@@ -68,6 +70,7 @@ public class PatientBase implements Serializable {
 		p.setDateOfBirth(dateOfBirth);
 		p.setAddress(address);
 		p.setPhoneNumber(phoneNumber);
+		p.setMr(mr);
 		p.createVectorOfData();
 		
 	}

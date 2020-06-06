@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -17,6 +18,7 @@ import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 
 import model.Patient;
+import view.dialog.MedicalRecordDialog;
 import view.dialog.PatientDialog;
 
 public class PatientFrame extends JFrame {
@@ -66,9 +68,19 @@ public class PatientFrame extends JFrame {
 		});
 		toolBar.add(pinfoB);
 		
-		JButton anamnesisB = new JButton("Anamneze");
-		anamnesisB.setToolTipText("Sve anamneze pacijenta");
-		toolBar.add(anamnesisB);
+		JButton medicalRecord = new JButton("Zdravstveni karton");
+		medicalRecord.setToolTipText("Zdravstveni karton pacijenta");
+		medicalRecord.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				MedicalRecordDialog mrd = new MedicalRecordDialog(patient, PatientFrame.this);
+				mrd.setVisible(true);
+				
+			}
+		});
+		toolBar.add(medicalRecord);
 		
 		
 		JButton preventiveB = new JButton("Preventivni");
