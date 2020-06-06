@@ -86,6 +86,8 @@ public class MedicalRecordDialog extends JDialog {
 	private JButton addMr;
 	private JButton cancelButton;
 	
+	private JButton addAnamnesis;
+	
 	protected JPanel buttonPane;
 	
 	
@@ -653,6 +655,19 @@ public class MedicalRecordDialog extends JDialog {
 		});
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
+		
+		
+		addAnamnesis = new JButton("Anamneze");
+		addAnamnesis.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		addAnamnesis.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				SelectAnamnesisDialog d = new SelectAnamnesisDialog();
+				d.setVisible(true);
+			}
+		});
+		buttonPane.add(addAnamnesis);
 	}
 	
 }
