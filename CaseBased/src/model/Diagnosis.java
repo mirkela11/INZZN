@@ -54,7 +54,7 @@ public class Diagnosis implements CaseComponent{
 	    public String toString() {
 	        String retVal = StringListMapper.toString(symptom);
 	        if (diagnosis != null && diagnosis.length() > 0)
-	            retVal += " => " + diagnosis;
+	            retVal += " -> " + diagnosis;
 	        return retVal;
 	    }
 	

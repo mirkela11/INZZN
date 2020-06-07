@@ -57,6 +57,7 @@ public class Procedures implements CaseComponent {
         String retVal = StringListMapper.toString(symptoms);
         if (procedure != null && procedure.length() > 0)
             retVal += " => " + procedure;
+
         return retVal;
     }
 

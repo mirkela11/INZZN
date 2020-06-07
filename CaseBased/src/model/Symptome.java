@@ -4,6 +4,7 @@ import java.util.List;
 
 import ucm.gaia.jcolibri.cbrcore.Attribute;
 import ucm.gaia.jcolibri.cbrcore.CaseComponent;
+import util.StringListMapper;
 
 public class Symptome implements CaseComponent{
 	
@@ -42,9 +43,12 @@ public class Symptome implements CaseComponent{
 		return null;
 	}
 
-	@Override
-	public String toString() {
-		return "Symptome [symptome=" + symptome + ", potential_diagnosis=" + diagnose + "]";
-	}
+	  @Override
+	    public String toString() {
+	        String retVal = StringListMapper.toString(diagnose);
+	        if (symptome != null && symptome.length() > 0)
+	            retVal += " -> " + symptome;
+	        return retVal;
+	    }
 
 }

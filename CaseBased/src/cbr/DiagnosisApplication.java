@@ -43,7 +43,7 @@ public class DiagnosisApplication implements StandardCBRApplication{
 		public void cycle(CBRQuery query) throws ExecutionException {
 			Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), query, simConfig);
 			eval = SelectCases.selectTopKRR(eval, 5);
-			System.out.println("Retrieved cases:");
+			System.out.println("\nRetrieved cases:\n");
 			for (RetrievalResult nse : eval)
 				System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
 		}
@@ -55,8 +55,11 @@ public class DiagnosisApplication implements StandardCBRApplication{
 		public CBRCaseBase preCycle() throws ExecutionException {
 			_caseBase.init(_connector);
 			Collection<CBRCase> cases = _caseBase.getCases();
-			for (CBRCase c: cases)
+			System.out.println("\n");
+			for (CBRCase c: cases) {
+				
 				System.out.println(c.getDescription());
+			}
 			return _caseBase;
 		}
 		
