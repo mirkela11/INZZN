@@ -9,6 +9,9 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -19,6 +22,9 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+
+import model.Diagnosis;
+import model.Table.PatientBase;
 
 public class SelectAnamnesisDialog extends JDialog{
 	
@@ -46,6 +52,7 @@ public class SelectAnamnesisDialog extends JDialog{
 	private JList<String> selectedValuesList;
 	
 	public SelectAnamnesisDialog() {
+		initPossibleList();
 		initComponents();
 	}
 	
@@ -198,6 +205,21 @@ public class SelectAnamnesisDialog extends JDialog{
 				buttonPanelDole.add(cancelButton);
 			}
 		}
+	}
+	
+	public void initPossibleList() {
+		ArrayList<String> tmp = PatientBase.getInstance().getOnlyDiagnoseNames();
+		//Izbacivanje duplikata (Set ne podrzava duplikate)
+		Set<String> set = new HashSet<>(tmp);
+		tmp.clear();
+		tmp.addAll(set);
+		for(String s: tmp) {
+			System.out.println(s);
+		}
+		
+		this.possibleValuesList = new JList(tmp.toArray());
+		this.possibleValuesList.setVisible(true);
+		
 	}
 
 }

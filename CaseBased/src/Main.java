@@ -7,6 +7,9 @@ import cbr.DiagnosisApplication;
 import cbr.MedicamentApplication;
 import cbr.ProceduresCbrApplication;
 import cbr.SymptomeApplication;
+import model.Diagnosis;
+import model.Patient;
+import model.Table.PatientBase;
 import view.MainFrame;
 
 public class Main {
@@ -26,6 +29,7 @@ public class Main {
         // MedicamentApplication medicamentApplication = new MedicamentApplication();
         // medicamentApplication.run(Arrays.asList("ketamine","flumazenil","fluorides","fenoprofen","plasma_protein_fraction"));
         ProceduresCbrApplication pca = new ProceduresCbrApplication();
+        System.out.println(PatientBase.getInstance().getDiagnosis_list().toString());
 		// pca.run(Arrays.asList("shoulder_pain","arm_pain","arm_swelling"));
 		// pca.run(Arrays.asList("shoulder_pain"));
 		// pca.run(Arrays.asList("wrist_pain"));
