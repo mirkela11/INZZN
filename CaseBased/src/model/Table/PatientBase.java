@@ -56,7 +56,7 @@ public class PatientBase implements Serializable {
 	
 	public void addPatient(String firstName, String lastname, String jmbg, String dateOfBirth, String address, String phoneNumber) {
 		MedicalRecord mr = new MedicalRecord();
-		Patient p = new Patient(patients.size()+1,firstName,lastname,jmbg,dateOfBirth,address,phoneNumber, mr);
+		Patient p = new Patient(patients.size()+1,firstName,lastname,jmbg,dateOfBirth,address,phoneNumber, mr, new ArrayList<String>());
 		this.patients.add(p);
 	}
 	public void deletePatient(int id) {
@@ -73,7 +73,7 @@ public class PatientBase implements Serializable {
 		return null;
 	}
 	
-	public void editPatient(int id,String firstName, String lastname, String jmbg, String dateOfBirth, String address, String phoneNumber, MedicalRecord mr) {
+	public void editPatient(int id,String firstName, String lastname, String jmbg, String dateOfBirth, String address, String phoneNumber, MedicalRecord mr, ArrayList<String> anamnesis) {
 		Patient p = findPatientById(id);
 		p.setFirstName(firstName);
 		p.setLastName(lastname);
@@ -82,6 +82,7 @@ public class PatientBase implements Serializable {
 		p.setAddress(address);
 		p.setPhoneNumber(phoneNumber);
 		p.setMr(mr);
+		p.setAnamnesis(anamnesis);
 		p.createVectorOfData();
 		
 	}

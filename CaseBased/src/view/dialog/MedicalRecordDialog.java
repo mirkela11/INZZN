@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -638,7 +639,8 @@ public class MedicalRecordDialog extends JDialog {
 				mr.setNedovoljnaFizickaAktivnost(aktivnost);
 				
 				System.out.println(mr.toString());
-				PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getJmbg(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(), mr);
+				ArrayList<String> tmp = new ArrayList<String>();
+				PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getJmbg(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(), mr, patient.getAnamnesis());
 				MainFrame.getInstance().updateMainPanelPatientsTable();
 				dispose();
 				

@@ -34,6 +34,7 @@ public class PatientFrame extends JFrame {
 
 	public PatientFrame(Patient patient) {
 		
+		MainFrame.getInstance().setCurrent(patient);
 		setPatient(patient);
 		setTitle("Profil pacijenta");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

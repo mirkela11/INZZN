@@ -2,6 +2,7 @@ package model;
 
 import java.beans.Transient;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Vector;
 
 
@@ -15,17 +16,19 @@ public class Patient implements Serializable {
 	private String address;
 	private String phoneNumber;
 	private MedicalRecord mr;
+	private ArrayList<String> anamnesis = new ArrayList<String>();
 	
 	private Vector<Object> structuredData;
 	
 	public Patient() {
 		super();
+
 	}
 	
 	
 	
 	public Patient(int id, String firstName, String lastName, String jmbg, String dateOfBirth, String address,
-			String phoneNumber, MedicalRecord mr) {
+			String phoneNumber, MedicalRecord mr, ArrayList<String> anamnesis) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -35,6 +38,7 @@ public class Patient implements Serializable {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.mr = mr;
+		this.anamnesis = anamnesis;
 		createVectorOfData();
 	}
 
@@ -95,6 +99,19 @@ public class Patient implements Serializable {
 		this.mr = mr;
 	}
 
+	
+
+
+	public ArrayList<String> getAnamnesis() {
+		return anamnesis;
+	}
+
+
+
+	public void setAnamnesis(ArrayList<String> anamnesis) {
+		this.anamnesis = anamnesis;
+	}
+
 
 
 	public Vector<Object> getStructuredData() {
@@ -109,14 +126,17 @@ public class Patient implements Serializable {
 
 
 
+	
+	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return "Patient [patientId=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", jmbg="
-		+ jmbg + ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", telephoneNumber="
-		+ phoneNumber + " ,medicalRecord=" + mr + "]";
+		return "Patient [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", jmbg=" + jmbg
+				+ ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", phoneNumber=" + phoneNumber + ", mr="
+				+ mr + ", anamnesis=" + anamnesis + ", structuredData=" + structuredData + "]";
 	}
-	
+
+
+
 	public void createVectorOfData() {
 		Vector<Object> objects = new Vector<Object>();
 		objects.add(getId());
@@ -127,6 +147,7 @@ public class Patient implements Serializable {
 		objects.add(getAddress());
 		objects.add(getPhoneNumber());
 		objects.add(getMr());
+		objects.add(getAnamnesis());
 		setStructuredData(objects);
 	}
 	

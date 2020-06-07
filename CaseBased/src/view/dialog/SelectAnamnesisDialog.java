@@ -11,9 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.AbstractAction;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -24,7 +26,9 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import model.Diagnosis;
+import model.Patient;
 import model.Table.PatientBase;
+import view.MainFrame;
 
 public class SelectAnamnesisDialog extends JDialog{
 	
@@ -113,6 +117,17 @@ public class SelectAnamnesisDialog extends JDialog{
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								// TODO Auto-generated method stub
+								List<String> selectedPatients = possibleValuesList.getSelectedValuesList();
+				            	DefaultListModel<String> possibleValuesListModel = (DefaultListModel<String>) possibleValuesList.getModel();
+				            	DefaultListModel<String> selectedValuesListModel = (DefaultListModel<String>) selectedValuesList.getModel();
+				            	for(String s : selectedPatients) {
+				            		selectedValuesListModel.addElement(s);
+				            		possibleValuesListModel.removeElement(s);
+								}
+				            	possibleValuesList.clearSelection();
+				            	
+				            	leftToRightButton.setEnabled(false);
+				            	rightToLeftButton.setEnabled(true);
 								
 							}
 						});
@@ -130,7 +145,18 @@ public class SelectAnamnesisDialog extends JDialog{
 							
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								// TODO Auto-generated method stub
+								// TODO Auto-generated method stub.
+								List<String> selectedPatients = selectedValuesList.getSelectedValuesList();
+				            	DefaultListModel<String> possibleValuesListModel = (DefaultListModel<String>) possibleValuesList.getModel();
+				            	DefaultListModel<String> selectedValuesListModel = (DefaultListModel<String>) selectedValuesList.getModel();
+				            	for(String p : selectedPatients) {
+									possibleValuesListModel.addElement(p);
+									selectedValuesListModel.removeElement(p);
+								}
+				            	selectedValuesList.clearSelection();
+				            	
+				            	rightToLeftButton.setEnabled(false);
+				            	leftToRightButton.setEnabled(true);
 								
 							}
 						});
@@ -184,6 +210,25 @@ public class SelectAnamnesisDialog extends JDialog{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
+						DefaultListModel<String>  lista = (DefaultListModel<String>) selectedValuesList.getModel();
+						ArrayList<String> rightList = new ArrayList<String>();
+						for(int i = 0; i < lista.getSize(); i++) {
+							rightList.add(lista.getElementAt(i));
+						}
+						
+						//Izbacivanje duplikata (Set ne podrzava duplikate)
+						Set<String> set = new HashSet<>(rightList);
+						rightList.clear();
+						rightList.addAll(set);
+						
+						
+						Patient patient = MainFrame.getInstance().getCurrent();
+						System.out.println("ISPOD");
+						System.out.println(patient.toString());
+						PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), rightList);
+						MainFrame.getInstance().updateMainPanelPatientsTable();
+						dispose();
+						
 						
 					}
 				});
@@ -209,17 +254,29 @@ public class SelectAnamnesisDialog extends JDialog{
 	
 	public void initPossibleList() {
 		ArrayList<String> tmp = PatientBase.getInstance().getOnlyDiagnoseNames();
+		DefaultListModel<String> possibleValuesListModel = new DefaultListModel<String>();
 		//Izbacivanje duplikata (Set ne podrzava duplikate)
 		Set<String> set = new HashSet<>(tmp);
 		tmp.clear();
 		tmp.addAll(set);
 		for(String s: tmp) {
-			System.out.println(s);
+			possibleValuesListModel.addElement(s);
 		}
+	
+		this.possibleValuesList = new JList<String>(possibleValuesListModel);
 		
-		this.possibleValuesList = new JList(tmp.toArray());
-		this.possibleValuesList.setVisible(true);
+		DefaultListModel<String> selectedValuesListModel = new DefaultListModel<String>();
+		
+		Patient p = MainFrame.getInstance().getCurrent();
+		ArrayList<String> tmp1 = p.getAnamnesis();
+		
+		for(String s1: tmp1) {
+			selectedValuesListModel.addElement(s1);
+		}
+		this.selectedValuesList = new JList<String>(selectedValuesListModel);
+		
 		
 	}
+	
 
 }
