@@ -156,7 +156,7 @@ public class MedicalRecordDialog extends JDialog {
 			if(mr.isAlkoholizam() == true) {
 				alkoholDa.setSelected(true);
 			} else {
-				alkoholNe.setSelected(false);
+				alkoholNe.setSelected(true);
 			}
 			
 			if(mr.isNedovoljnaFizickaAktivnost() == true) {
