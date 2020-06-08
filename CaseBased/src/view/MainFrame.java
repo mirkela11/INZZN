@@ -46,6 +46,7 @@ private static MainFrame instance = null;
 	private PatientTablePanel patientsTablePanel;
 	Patient current;
 	private Collection<RetrievalResult> ret;
+	private Collection<RetrievalResult> ret2;
 	
 	public static MainFrame getInstance() {
 		if(instance == null) {
@@ -217,6 +218,14 @@ private static MainFrame instance = null;
 
 	public void setRet(Collection<RetrievalResult> ret) {
 		this.ret = ret;
+	}
+
+	public Collection<RetrievalResult> getRet2() {
+		return ret2;
+	}
+
+	public void setRet2(Collection<RetrievalResult> ret2) {
+		this.ret2 = ret2;
 	}
 	
 	

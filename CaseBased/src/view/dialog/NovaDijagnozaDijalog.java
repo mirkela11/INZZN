@@ -7,14 +7,27 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import cbr.DiagnosisApplication;
+import model.Patient;
+import model.PhysicalExamination;
+import model.Table.PatientBase;
+import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
+import view.MainFrame;
 
 public class NovaDijagnozaDijalog extends JDialog{
 	
@@ -27,8 +40,14 @@ public class NovaDijagnozaDijalog extends JDialog{
 	private JPanel panel_1;
 	private JLabel label_2;
 	private JButton btnUradi;
+	private PhysicalExamination physicalExamination;
+	private Collection<RetrievalResult> results = new ArrayList<RetrievalResult>();
 	
-	public NovaDijagnozaDijalog() {
+	private JList<String> diagnosisList;
+	private DefaultListModel<String> diagnosisListModel;
+	
+	public NovaDijagnozaDijalog(PhysicalExamination p) {
+		this.physicalExamination = p;
 		initComponents();
 	}
 	
@@ -36,7 +55,7 @@ public class NovaDijagnozaDijalog extends JDialog{
 		setTitle("Dodavanje nove dijagnoze");
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setSize(450,350);
+		setSize(1000,500);
 		setLocationRelativeTo(null);
 		
 		getContentPane().setLayout(new BorderLayout());
@@ -83,22 +102,6 @@ public class NovaDijagnozaDijalog extends JDialog{
 			gbc_comboBox.gridy = 1;
 			panel.add(combo, gbc_comboBox);
 			
-			//dugme pogledaj
-			button = new JButton("Pogledaj");
-			GridBagConstraints gbc_button = new GridBagConstraints();
-			gbc_button.gridx = 5;
-			gbc_button.gridy = 1;
-			panel.add(button, gbc_button);
-			button.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-		}
-		{
 			panel_1 = new JPanel();
 			GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 			gbc_panel_1.gridheight = 4;
@@ -111,6 +114,36 @@ public class NovaDijagnozaDijalog extends JDialog{
 			label_2 = new JLabel("Preporucena dopunska ispitivanja su:");
 			label_2.setFont(new Font("Tahoma", Font.BOLD, 15));
 			panel_1.add(label_2);
+			
+			//dugme pogledaj
+			button = new JButton("Pogledaj");
+			GridBagConstraints gbc_button = new GridBagConstraints();
+			gbc_button.gridx = 5;
+			gbc_button.gridy = 1;
+			panel.add(button, gbc_button);
+			button.addActionListener(new ActionListener() {
+				
+				String reasoning = (String) combo.getItemAt(1);
+				List<String> solutionList = new ArrayList<String>();
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					System.out.println(reasoning);
+					if(reasoning.equals("Case based")) {
+						
+						DiagnosisApplication da = new DiagnosisApplication();
+						da.run(physicalExamination.getSimptomi());
+						results = MainFrame.getInstance().getRet2();
+						System.out.println(results.size());
+						initList();
+						JScrollPane scrollPane = new JScrollPane(diagnosisList);
+						panel_1.add(scrollPane, BorderLayout.CENTER);
+						revalidate();
+						repaint();
+					}
+				}
+			});
 		}
 		{
 			//dugme uradi
@@ -120,7 +153,42 @@ public class NovaDijagnozaDijalog extends JDialog{
 			gbc_btnUradi.gridx = 0;
 			gbc_btnUradi.gridy = 11;
 			contentPanel.add(btnUradi, gbc_btnUradi);
+			btnUradi.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					String selectedValue = diagnosisList.getSelectedValue();
+					System.out.println(selectedValue);
+					if(selectedValue == null) {
+						return;
+					}else {
+						String[] parts = selectedValue.split("=>");
+						String retValue = parts[1];
+						physicalExamination.setDijagnoza(retValue);
+						Patient patient = MainFrame.getInstance().getCurrent();
+						for(PhysicalExamination pe : patient.getPregledi()) {
+							if(pe.getId() == physicalExamination.getId()) {
+								pe = physicalExamination;
+								break;
+							}
+						}
+						PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
+						dispose();
+					}
+				}
+			});
 		}
+	}
+	
+	public void initList() {
+		
+		diagnosisListModel = new DefaultListModel<String>();
+		
+		for (RetrievalResult nse : results)
+			diagnosisListModel.addElement(nse.get_case().getDescription() + "=>" + nse.getEval());
+		
+		diagnosisList = new JList<String>(diagnosisListModel);
 	}
 
 }

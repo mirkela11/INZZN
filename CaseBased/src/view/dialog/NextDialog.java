@@ -62,7 +62,7 @@ public class NextDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				NovaDijagnozaDijalog d2 = new NovaDijagnozaDijalog();
+				NovaDijagnozaDijalog d2 = new NovaDijagnozaDijalog(p);
 				d2.setVisible(true);
 			}
 		});
