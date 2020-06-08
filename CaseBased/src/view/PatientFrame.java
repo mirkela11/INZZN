@@ -22,6 +22,7 @@ import view.dialog.MedicalRecordDialog;
 import view.dialog.NewPhysicalExaminationDialog;
 import view.dialog.PatientDialog;
 import view.dialog.PhysicalExaminationDialog;
+import view.dialog.SelectSymptomsForPhysicalExaminationDialog;
 
 public class PatientFrame extends JFrame {
 	
