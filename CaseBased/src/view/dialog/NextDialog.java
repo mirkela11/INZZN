@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 
+import model.PhysicalExamination;
+
 public class NextDialog extends JDialog{
 	
 	private JPanel contentPane;
@@ -18,8 +20,10 @@ public class NextDialog extends JDialog{
 	private JButton dodajProceduruButton;
 	private JButton dodajDijagnozuButton;
 	private JButton dodajTerapijuButton;
+	private PhysicalExamination p;
 	
-	public NextDialog () {
+	public NextDialog (PhysicalExamination physicalExamination) {
+		p = physicalExamination;
 		initComponents();
 	}
 	
@@ -46,7 +50,7 @@ public class NextDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				NovaProceduraDijalog d = new NovaProceduraDijalog();
+				NovaProceduraDijalog d = new NovaProceduraDijalog(p);
 				d.setVisible(true);
 			}
 		});

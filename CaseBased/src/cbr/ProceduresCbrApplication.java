@@ -19,6 +19,7 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNConfig;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
+import view.MainFrame;
 
 
 public class ProceduresCbrApplication implements StandardCBRApplication {
@@ -27,7 +28,7 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 	CBRCaseBase _caseBase;  /** CaseBase object */
 
 	NNConfig simConfig;  /** KNN configuration */
-
+	
 	
 	public void configure() throws ExecutionException {
 		_connector =  new ProceduresConnector();
@@ -46,10 +47,11 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 
 	public void cycle(CBRQuery query) throws ExecutionException {
 		Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), query, simConfig);
-		eval = SelectCases.selectTopKRR(eval, 10);
+		eval = SelectCases.selectTopKRR(eval, 7);
+		MainFrame.getInstance().setRet(eval);
 		System.out.println("Retrieved cases:");
 		for (RetrievalResult nse : eval)
-			System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
+			System.out.println(nse.get_case().getDescription() + " => " + nse.getEval());
 	}
 
 	public void postCycle() throws ExecutionException {
@@ -83,11 +85,13 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 			recommender.cycle(query);
 
 			recommender.postCycle();
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
-	
-	
+
 
 }

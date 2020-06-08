@@ -11,6 +11,9 @@ public class PhysicalExamination implements Serializable {
 	private String vidljivOtok;
 	private String mogucnostPokreta;
 	private ArrayList<String> simptomi = new ArrayList<String>();
+	private String procedura;
+	private String dijagnoza;
+	private String terapija;
 	
 	
 	public PhysicalExamination() {
@@ -29,8 +32,58 @@ public class PhysicalExamination implements Serializable {
 		this.simptomi = simptomi;
 	}
 
+	public PhysicalExamination(int id, String vidljivPrelom, String vidljivOtok, String mogucnostPokreta,
+			ArrayList<String> simptomi, String procedura, String dijagnoza, String terapija) {
+		super();
+		this.id = id;
+		this.vidljivPrelom = vidljivPrelom;
+		this.vidljivOtok = vidljivOtok;
+		this.mogucnostPokreta = mogucnostPokreta;
+		this.simptomi = simptomi;
+		this.procedura = procedura;
+		this.dijagnoza = dijagnoza;
+		this.terapija = terapija;
+	}
+
 
 	
+
+	public String getProcedura() {
+		return procedura;
+	}
+
+
+
+	public void setProcedura(String procedura) {
+		this.procedura = procedura;
+	}
+
+
+
+	public String getDijagnoza() {
+		return dijagnoza;
+	}
+
+
+
+	public void setDijagnoza(String dijagnoza) {
+		this.dijagnoza = dijagnoza;
+	}
+
+
+
+	public String getTerapija() {
+		return terapija;
+	}
+
+
+
+	public void setTerapija(String terapija) {
+		this.terapija = terapija;
+	}
+
+
+
 	public int getId() {
 		return id;
 	}
@@ -81,13 +134,13 @@ public class PhysicalExamination implements Serializable {
 
 
 
-
 	@Override
 	public String toString() {
-		return "PhysicalExamination [vidljivPrelom=" + vidljivPrelom + ", vidljivOtok=" + vidljivOtok
-				+ ", mogucnostPokreta=" + mogucnostPokreta + ", simptomi=" + simptomi + "]";
+		return "PhysicalExamination [id=" + id + ", vidljivPrelom=" + vidljivPrelom + ", vidljivOtok=" + vidljivOtok
+				+ ", mogucnostPokreta=" + mogucnostPokreta + ", simptomi=" + simptomi + ", procedura=" + procedura
+				+ ", dijagnoza=" + dijagnoza + ", terapija=" + terapija + "]";
 	}
-	
-	
+
+		
 	
 }

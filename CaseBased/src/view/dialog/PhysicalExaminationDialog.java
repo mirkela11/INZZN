@@ -60,6 +60,7 @@ public class PhysicalExaminationDialog extends JDialog{
 				// TODO Auto-generated method stub
 				NewPhysicalExaminationDialog d = new NewPhysicalExaminationDialog();
 				d.setVisible(true);
+				
 			}
 		});
 		
@@ -103,7 +104,7 @@ public class PhysicalExaminationDialog extends JDialog{
 								System.out.println("usao enter");
 								// SelectSymptomsForPhysicalExaminationDialog d = new SelectSymptomsForPhysicalExaminationDialog(t);
 								// d.setVisible(true);
-								NextDialog d = new NextDialog();
+								NextDialog d = new NextDialog(t);
 								d.setVisible(true);
 								
 							}

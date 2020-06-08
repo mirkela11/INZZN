@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,6 +33,7 @@ import model.Patient;
 import model.Table.PatientBase;
 import model.Table.PatientTable;
 import model.Table.PatientTablePanel;
+import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
 
 public class MainFrame extends JFrame {
 
@@ -43,6 +45,7 @@ private static MainFrame instance = null;
 	private JPanel mainPanel;
 	private PatientTablePanel patientsTablePanel;
 	Patient current;
+	private Collection<RetrievalResult> ret;
 	
 	public static MainFrame getInstance() {
 		if(instance == null) {
@@ -206,6 +209,14 @@ private static MainFrame instance = null;
 
 	public void setCurrent(Patient current) {
 		this.current = current;
+	}
+
+	public Collection<RetrievalResult> getRet() {
+		return ret;
+	}
+
+	public void setRet(Collection<RetrievalResult> ret) {
+		this.ret = ret;
 	}
 	
 	
