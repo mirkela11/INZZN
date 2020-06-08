@@ -122,7 +122,8 @@ public class PatientBase implements Serializable {
 			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
+		
 	}
 	
 	private void initProcedures() {

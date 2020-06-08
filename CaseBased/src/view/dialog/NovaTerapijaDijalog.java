@@ -58,7 +58,7 @@ private JPanel contentPanel = new JPanel();
 		setTitle("Dodavanje nove terapije");
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setSize(450,350);
+		setSize(1000,500);
 		setLocationRelativeTo(null);
 		
 		getContentPane().setLayout(new BorderLayout());
