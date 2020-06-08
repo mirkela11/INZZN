@@ -39,7 +39,7 @@ public class PhysicalExaminationDialog extends JDialog{
 		setTitle("Pregledi pacijenta");
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setSize(450,450);
+		setSize(1000,450);
 		setLocationRelativeTo(null);
 		
 		contentPane = new JPanel();

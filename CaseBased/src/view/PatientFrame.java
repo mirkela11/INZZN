@@ -86,9 +86,7 @@ public class PatientFrame extends JFrame {
 		toolBar.add(medicalRecord);
 		
 		
-		JButton preventiveB = new JButton("Preventivni");
-		preventiveB.setToolTipText("Preporuka preventivnog pregleda za pacijenta");
-		toolBar.add(preventiveB);
+		
 		
 		JButton examinationB = new JButton("Pregledi");
 		examinationB.setToolTipText("Svi pregledi pacijenta");
@@ -102,7 +100,11 @@ public class PatientFrame extends JFrame {
 			}
 		});
 		toolBar.add(examinationB);
+		/*
 		
+		JButton preventiveB = new JButton("Preventivni");
+		preventiveB.setToolTipText("Preporuka preventivnog pregleda za pacijenta");
+		toolBar.add(preventiveB);
 		
 		JButton diagnosisB = new JButton("Dijagnoze");
 		diagnosisB.setToolTipText("Sve dijagnoze pacijenta");
@@ -110,7 +112,7 @@ public class PatientFrame extends JFrame {
 		
 		JButton theraphyB = new JButton("Terapije");
 		theraphyB.setToolTipText("Sve terapije pacijenta");
-		toolBar.add(theraphyB);
+		toolBar.add(theraphyB); */
 			
 		
 	}
