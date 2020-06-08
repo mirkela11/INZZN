@@ -19,7 +19,9 @@ import javax.swing.border.EmptyBorder;
 
 import model.Patient;
 import view.dialog.MedicalRecordDialog;
+import view.dialog.NewPhysicalExaminationDialog;
 import view.dialog.PatientDialog;
+import view.dialog.PhysicalExaminationDialog;
 
 public class PatientFrame extends JFrame {
 	
@@ -61,7 +63,7 @@ public class PatientFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stu
+				// TODO Auto-generated method stub
 				PatientDialog p = new PatientDialog(patient, PatientFrame.this);
 				p.setVisible(true);
 				
@@ -77,8 +79,7 @@ public class PatientFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				MedicalRecordDialog mrd = new MedicalRecordDialog(patient, PatientFrame.this);
-				mrd.setVisible(true);
-				
+				mrd.setVisible(true);				
 			}
 		});
 		toolBar.add(medicalRecord);
@@ -89,7 +90,16 @@ public class PatientFrame extends JFrame {
 		toolBar.add(preventiveB);
 		
 		JButton examinationB = new JButton("Pregledi");
-		examinationB.setToolTipText("Sve pregledi pacijenta");
+		examinationB.setToolTipText("Svi pregledi pacijenta");
+		examinationB.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				PhysicalExaminationDialog d = new PhysicalExaminationDialog();
+				d.setVisible(true);
+			}
+		});
 		toolBar.add(examinationB);
 		
 		
