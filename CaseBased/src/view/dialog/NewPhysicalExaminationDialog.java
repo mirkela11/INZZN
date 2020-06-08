@@ -218,7 +218,7 @@ public class NewPhysicalExaminationDialog extends JDialog{
 			gbc_pokretPanelPanel.fill = GridBagConstraints.BOTH;
 			gbc_pokretPanelPanel.gridx = 6;
 			gbc_pokretPanelPanel.gridy = 11;
-			contentPanel.add(vidljivOtokPanel, gbc_pokretPanelPanel);
+			contentPanel.add(pokretPanel, gbc_pokretPanelPanel);
 			pokretPanel.setLayout(new GridLayout(1, 3, 5, 5));
 			
 			dobarPokretRadioButton = new JRadioButton("Dobra");
