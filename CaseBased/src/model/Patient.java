@@ -17,6 +17,7 @@ public class Patient implements Serializable {
 	private String phoneNumber;
 	private MedicalRecord mr;
 	private ArrayList<String> anamnesis = new ArrayList<String>();
+	private ArrayList<PhysicalExamination> pregledi = new ArrayList<PhysicalExamination>();
 	
 	private Vector<Object> structuredData;
 	
@@ -28,7 +29,7 @@ public class Patient implements Serializable {
 	
 	
 	public Patient(int id, String firstName, String lastName, String jmbg, String dateOfBirth, String address,
-			String phoneNumber, MedicalRecord mr, ArrayList<String> anamnesis) {
+			String phoneNumber, MedicalRecord mr, ArrayList<String> anamnesis, ArrayList<PhysicalExamination> pregledi) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -39,6 +40,7 @@ public class Patient implements Serializable {
 		this.phoneNumber = phoneNumber;
 		this.mr = mr;
 		this.anamnesis = anamnesis;
+		this.pregledi = pregledi;
 		createVectorOfData();
 	}
 
@@ -111,6 +113,20 @@ public class Patient implements Serializable {
 	public void setAnamnesis(ArrayList<String> anamnesis) {
 		this.anamnesis = anamnesis;
 	}
+	
+	
+
+
+
+	public ArrayList<PhysicalExamination> getPregledi() {
+		return pregledi;
+	}
+
+
+
+	public void setPregledi(ArrayList<PhysicalExamination> pregledi) {
+		this.pregledi = pregledi;
+	}
 
 
 
@@ -127,12 +143,15 @@ public class Patient implements Serializable {
 
 
 	
-	
+
+
+
 	@Override
 	public String toString() {
 		return "Patient [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", jmbg=" + jmbg
 				+ ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", phoneNumber=" + phoneNumber + ", mr="
-				+ mr + ", anamnesis=" + anamnesis + ", structuredData=" + structuredData + "]";
+				+ mr + ", anamnesis=" + anamnesis + ", pregledi=" + pregledi + ", structuredData=" + structuredData
+				+ "]";
 	}
 
 
@@ -148,6 +167,7 @@ public class Patient implements Serializable {
 		objects.add(getPhoneNumber());
 		objects.add(getMr());
 		objects.add(getAnamnesis());
+		objects.add(getPregledi());
 		setStructuredData(objects);
 	}
 	

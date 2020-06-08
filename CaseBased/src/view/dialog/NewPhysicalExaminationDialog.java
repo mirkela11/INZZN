@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -19,6 +20,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import model.Patient;
+import model.PhysicalExamination;
+import model.Table.PatientBase;
 import view.MainFrame;
 
 public class NewPhysicalExaminationDialog extends JDialog{
@@ -45,12 +49,14 @@ public class NewPhysicalExaminationDialog extends JDialog{
 	private JPanel buttonPane;
 	private JButton addPhysicalExamanationButton;
 	private JButton cancelButton;
+	private JButton symptomButton;
 	private JLabel pokretLabela;
 	private JPanel pokretPanel;
 	private ButtonGroup bg3;
 	private JRadioButton dobarPokretRadioButton;
 	private JRadioButton slabPokretRadioButton;
 	private JRadioButton nemaPokretRadioButton;
+	private PhysicalExamination p;
 	
 	public NewPhysicalExaminationDialog() {
 		initComponents();
@@ -253,6 +259,45 @@ public class NewPhysicalExaminationDialog extends JDialog{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
+					    p = new PhysicalExamination();
+						if(imaVidljivPrelomRadioButton.isSelected()) {
+							p.setVidljivPrelom("Ima");
+						} else {
+							p.setVidljivPrelom("Nema");
+						}
+						
+						if(velikiOtokRadioButton.isSelected()) {
+							p.setVidljivOtok("Veliki");
+						} else if(maliOtokRadioButton.isSelected()) {
+							p.setVidljivOtok("Mali");
+						} else {
+							p.setVidljivOtok("Nema");
+						}
+						
+						if(dobarPokretRadioButton.isSelected()) {
+							p.setMogucnostPokreta("Dobra");
+						} else if(slabPokretRadioButton.isSelected()) {
+							p.setMogucnostPokreta("Slaba");
+						} else {
+							p.setMogucnostPokreta("Nema");
+						}
+															
+						Patient patient = MainFrame.getInstance().getCurrent();
+						
+						ArrayList<PhysicalExamination> tmp = patient.getPregledi();
+						p.setId(tmp.size() + 1);
+						tmp.add(p);
+						PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getJmbg(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(), patient.getMr(), patient.getAnamnesis(), tmp);
+						System.out.println("ispod");
+						
+						for (PhysicalExamination physicalExamination : patient.getPregledi()) {
+							System.out.println(physicalExamination.toString());
+						}						
+						dispose();
+						
+						SelectSymptomsForPhysicalExaminationDialog d = new SelectSymptomsForPhysicalExaminationDialog(p);
+						d.setVisible(true);
+						
 						
 					}
 				});
@@ -272,6 +317,23 @@ public class NewPhysicalExaminationDialog extends JDialog{
 				});
 				buttonPane.add(cancelButton);
 			}
+			/*
+			{
+				symptomButton = new JButton("Simptomi");
+				symptomButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+				symptomButton.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						SelectSymptomsForPhysicalExaminationDialog d = new SelectSymptomsForPhysicalExaminationDialog();
+						d.setVisible(true);
+						
+					}
+				});
+				
+				buttonPane.add(symptomButton);
+			}*/
 		}
 		
 	}

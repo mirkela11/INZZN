@@ -38,8 +38,8 @@ public class PatientDialog extends NewPatientDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				ArrayList<String> tmp = new ArrayList<String>();
-				PatientBase.getInstance().editPatient(patient.getId(), firstNameTextField.getText(), lastNameTextField.getText(), addressTextField.getText(), dateOfBirthDateField.getText(), addressTextField.getText(), telephoneNumberTextField.getText(),patient.getMr(), tmp);
+				// ArrayList<String> tmp = new ArrayList<String>();
+				PatientBase.getInstance().editPatient(patient.getId(), firstNameTextField.getText(), lastNameTextField.getText(), addressTextField.getText(), dateOfBirthDateField.getText(), addressTextField.getText(), telephoneNumberTextField.getText(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
 				MainFrame.getInstance().updateMainPanelPatientsTable();
 				dispose();
 				

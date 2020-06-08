@@ -640,7 +640,7 @@ public class MedicalRecordDialog extends JDialog {
 				
 				System.out.println(mr.toString());
 				ArrayList<String> tmp = new ArrayList<String>();
-				PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getJmbg(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(), mr, patient.getAnamnesis());
+				PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getJmbg(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(), mr, patient.getAnamnesis(), patient.getPregledi());
 				MainFrame.getInstance().updateMainPanelPatientsTable();
 				dispose();
 				

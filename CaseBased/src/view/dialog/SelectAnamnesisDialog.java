@@ -225,7 +225,7 @@ public class SelectAnamnesisDialog extends JDialog{
 						Patient patient = MainFrame.getInstance().getCurrent();
 						System.out.println("ISPOD");
 						System.out.println(patient.toString());
-						PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), rightList);
+						PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), rightList, patient.getPregledi());
 						MainFrame.getInstance().updateMainPanelPatientsTable();
 						dispose();
 						

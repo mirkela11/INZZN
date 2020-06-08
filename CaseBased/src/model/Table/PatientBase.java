@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import model.Diagnosis;
 import model.MedicalRecord;
 import model.Patient;
+import model.PhysicalExamination;
+import model.Procedures;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
 import ucm.gaia.jcolibri.util.FileIO;
 import util.StringListMapper;
@@ -34,16 +36,21 @@ public class PatientBase implements Serializable {
 	private ArrayList<Patient> patients;
 	private ArrayList<Diagnosis> diagnosis_list;
 	private ArrayList<String> onlyDiagnoseNames;
+	private ArrayList<Procedures> procedures_list;
+	private ArrayList<String> onlySympthomsNames;
 	
 	private PatientBase() {
 		initBase();
 		initDiagnosis();
+		initProcedures();
 	}
 	
 	private void initBase() {
 		this.patients = new ArrayList<Patient>();
 		this.diagnosis_list = new ArrayList<Diagnosis>();
 		this.onlyDiagnoseNames = new ArrayList<String>();
+		this.procedures_list = new ArrayList<Procedures>();
+		this.onlySympthomsNames = new ArrayList<String>();
 	}
 
 	public ArrayList<Patient> getPatients() {
@@ -56,7 +63,7 @@ public class PatientBase implements Serializable {
 	
 	public void addPatient(String firstName, String lastname, String jmbg, String dateOfBirth, String address, String phoneNumber) {
 		MedicalRecord mr = new MedicalRecord();
-		Patient p = new Patient(patients.size()+1,firstName,lastname,jmbg,dateOfBirth,address,phoneNumber, mr, new ArrayList<String>());
+		Patient p = new Patient(patients.size()+1,firstName,lastname,jmbg,dateOfBirth,address,phoneNumber, mr, new ArrayList<String>(), new ArrayList<PhysicalExamination>());
 		this.patients.add(p);
 	}
 	public void deletePatient(int id) {
@@ -73,7 +80,7 @@ public class PatientBase implements Serializable {
 		return null;
 	}
 	
-	public void editPatient(int id,String firstName, String lastname, String jmbg, String dateOfBirth, String address, String phoneNumber, MedicalRecord mr, ArrayList<String> anamnesis) {
+	public void editPatient(int id,String firstName, String lastname, String jmbg, String dateOfBirth, String address, String phoneNumber, MedicalRecord mr, ArrayList<String> anamnesis, ArrayList<PhysicalExamination> pregledi) {
 		Patient p = findPatientById(id);
 		p.setFirstName(firstName);
 		p.setLastName(lastname);
@@ -83,6 +90,7 @@ public class PatientBase implements Serializable {
 		p.setPhoneNumber(phoneNumber);
 		p.setMr(mr);
 		p.setAnamnesis(anamnesis);
+		p.setPregledi(pregledi);
 		p.createVectorOfData();
 		
 	}
@@ -115,6 +123,34 @@ public class PatientBase implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
+	}
+	
+	private void initProcedures() {
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("data/Procedures.csv")));
+			if (br == null)
+				throw new Exception("Error opening file");
+
+			String line = "";
+			while ((line = br.readLine()) != null) {
+				if (line.startsWith("#") || (line.length() == 0))
+					continue;
+				String[] values = line.split(";");
+
+				Procedures procedure = new Procedures();		
+				procedure.setSymptoms(StringListMapper.toList(values[0]));			
+				procedure.setProcedure(values[1]);
+				
+				String[] split = values[0].split(",");
+				
+				this.procedures_list.add(procedure);
+				this.onlySympthomsNames.add(split[0]);
+						
+			}
+			br.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void serialize() {
@@ -162,6 +198,22 @@ public class PatientBase implements Serializable {
 
 	public void setOnlyDiagnoseNames(ArrayList<String> onlyDiagnoseNames) {
 		this.onlyDiagnoseNames = onlyDiagnoseNames;
+	}
+
+	public ArrayList<Procedures> getProcedures_list() {
+		return procedures_list;
+	}
+
+	public void setProcedures_list(ArrayList<Procedures> procedures_list) {
+		this.procedures_list = procedures_list;
+	}
+
+	public ArrayList<String> getOnlySympthomsNames() {
+		return onlySympthomsNames;
+	}
+
+	public void setOnlySympthomsNames(ArrayList<String> onlySympthomsNames) {
+		this.onlySympthomsNames = onlySympthomsNames;
 	}
 
 	

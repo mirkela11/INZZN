@@ -26,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import model.Patient;
+import model.PhysicalExamination;
 import model.Table.PatientBase;
 import view.MainFrame;
 
@@ -54,7 +55,10 @@ public class SelectSymptomsForPhysicalExaminationDialog extends JDialog{
 	private JList<String> possibleValuesList;
 	private JList<String> selectedValuesList;
 	
-	public SelectSymptomsForPhysicalExaminationDialog() {
+	private PhysicalExamination physicalExamination;
+	
+	public SelectSymptomsForPhysicalExaminationDialog(PhysicalExamination p) {
+		this.physicalExamination = p;
 		initPossibleList();
 		initComponents();
 	}
@@ -220,12 +224,20 @@ public class SelectSymptomsForPhysicalExaminationDialog extends JDialog{
 						rightList.clear();
 						rightList.addAll(set);
 						
+						physicalExamination.setSimptomi(rightList);
+						Patient patient = MainFrame.getInstance().getCurrent();	
+						for(PhysicalExamination pe : patient.getPregledi())  {
+							if(pe.getId() == physicalExamination.getId()) {
+								pe = physicalExamination;
+								break;
+							}
+						}
+						PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
 						
-						Patient patient = MainFrame.getInstance().getCurrent();
-						System.out.println("ISPOD");
-						System.out.println(patient.toString());
-						PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), rightList);
-						MainFrame.getInstance().updateMainPanelPatientsTable();
+						for (PhysicalExamination physicalExamination : patient.getPregledi()) {
+							System.out.println(physicalExamination.toString());
+						}
+									
 						dispose();
 						
 						
@@ -252,7 +264,7 @@ public class SelectSymptomsForPhysicalExaminationDialog extends JDialog{
 	}
 	
 	public void initPossibleList() {
-		ArrayList<String> tmp = PatientBase.getInstance().getOnlyDiagnoseNames();
+		ArrayList<String> tmp = PatientBase.getInstance().getOnlySympthomsNames();
 		DefaultListModel<String> possibleValuesListModel = new DefaultListModel<String>();
 		//Izbacivanje duplikata (Set ne podrzava duplikate)
 		Set<String> set = new HashSet<>(tmp);
@@ -265,13 +277,6 @@ public class SelectSymptomsForPhysicalExaminationDialog extends JDialog{
 		this.possibleValuesList = new JList<String>(possibleValuesListModel);
 		
 		DefaultListModel<String> selectedValuesListModel = new DefaultListModel<String>();
-		
-		Patient p = MainFrame.getInstance().getCurrent();
-		ArrayList<String> tmp1 = p.getAnamnesis();
-		
-		for(String s1: tmp1) {
-			selectedValuesListModel.addElement(s1);
-		}
 		this.selectedValuesList = new JList<String>(selectedValuesListModel);
 		
 		
