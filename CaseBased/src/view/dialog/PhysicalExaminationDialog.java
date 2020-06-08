@@ -103,6 +103,8 @@ public class PhysicalExaminationDialog extends JDialog{
 								System.out.println("usao enter");
 								// SelectSymptomsForPhysicalExaminationDialog d = new SelectSymptomsForPhysicalExaminationDialog(t);
 								// d.setVisible(true);
+								NextDialog d = new NextDialog();
+								d.setVisible(true);
 								
 							}
 			           }
