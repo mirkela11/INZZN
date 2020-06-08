@@ -19,6 +19,7 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNConfig;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
+import view.MainFrame;
 
 
 public class ProceduresCbrApplication implements StandardCBRApplication {
@@ -27,7 +28,7 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 	CBRCaseBase _caseBase;  /** CaseBase object */
 
 	NNConfig simConfig;  /** KNN configuration */
-
+	
 	
 	public void configure() throws ExecutionException {
 		_connector =  new ProceduresConnector();
@@ -36,11 +37,9 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 		
 		simConfig = new NNConfig(); // KNN configuration
 		simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
-		
-		// simConfig.addMapping(new Attribute("attribute", CaseDescription.class), new Interval(5));
 	
 
-		simConfig.addMapping(new Attribute("procedures", Procedures.class), new ListTableSimilarity());
+		simConfig.addMapping(new Attribute("symptoms", Procedures.class), new ListTableSimilarity());
 		
 		
 	}
@@ -48,10 +47,11 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 
 	public void cycle(CBRQuery query) throws ExecutionException {
 		Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), query, simConfig);
-		eval = SelectCases.selectTopKRR(eval, 5);
-		System.out.println("\nRetrieved cases:\n");
+		eval = SelectCases.selectTopKRR(eval, 7);
+		MainFrame.getInstance().setRet(eval);
+		System.out.println("Retrieved cases:");
 		for (RetrievalResult nse : eval)
-			System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
+			System.out.println(nse.get_case().getDescription() + " => " + nse.getEval());
 	}
 
 	public void postCycle() throws ExecutionException {
@@ -67,7 +67,7 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 		return _caseBase;
 	}
 	
-	public void run(List<String> procedures) {
+	public void run(List<String> symptoms) {
 		StandardCBRApplication recommender = new ProceduresCbrApplication();
 		try {
 			recommender.configure();
@@ -78,18 +78,20 @@ public class ProceduresCbrApplication implements StandardCBRApplication {
 
 			Procedures p = new Procedures();
 
-			p.setProcedures(procedures);
+			p.setSymptoms(symptoms);
 
 			query.setDescription(p);
 
 			recommender.cycle(query);
 
 			recommender.postCycle();
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
-	
-	
+
 
 }
