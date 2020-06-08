@@ -19,6 +19,7 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNConfig;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
+import view.MainFrame;
 
 public class DiagnosisApplication implements StandardCBRApplication{
 			
@@ -43,6 +44,7 @@ public class DiagnosisApplication implements StandardCBRApplication{
 		public void cycle(CBRQuery query) throws ExecutionException {
 			Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), query, simConfig);
 			eval = SelectCases.selectTopKRR(eval, 5);
+			MainFrame.getInstance().setRet2(eval);
 			System.out.println("\nRetrieved cases:\n");
 			for (RetrievalResult nse : eval)
 				System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
