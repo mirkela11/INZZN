@@ -87,7 +87,7 @@ public class AboutFrame extends JFrame {
 		JPanel panel_2 = new JPanel();
 		authorsPanel.add(panel_2);
 		
-		JLabel lblNewLabel_2 = new JLabel("Nikola Zejak RA52/2016");
+		JLabel lblNewLabel_2 = new JLabel("Nikola Zejak RA53/2016");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_2.add(lblNewLabel_2);
 		

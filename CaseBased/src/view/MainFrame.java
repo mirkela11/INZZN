@@ -47,6 +47,7 @@ private static MainFrame instance = null;
 	Patient current;
 	private Collection<RetrievalResult> ret;
 	private Collection<RetrievalResult> ret2;
+	private Collection<RetrievalResult> ret3;
 	
 	public static MainFrame getInstance() {
 		if(instance == null) {
@@ -227,6 +228,16 @@ private static MainFrame instance = null;
 	public void setRet2(Collection<RetrievalResult> ret2) {
 		this.ret2 = ret2;
 	}
+
+	public Collection<RetrievalResult> getRet3() {
+		return ret3;
+	}
+
+	public void setRet3(Collection<RetrievalResult> ret3) {
+		this.ret3 = ret3;
+	}
+	
+	
 	
 	
 }

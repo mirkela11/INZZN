@@ -74,7 +74,7 @@ public class NextDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				NovaTerapijaDijalog d3 = new NovaTerapijaDijalog();
+				NovaTerapijaDijalog d3 = new NovaTerapijaDijalog(p);
 				d3.setVisible(true);
 			}
 		});

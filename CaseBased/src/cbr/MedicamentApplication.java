@@ -1,5 +1,6 @@
 package cbr;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import connector.MedicamentConnector;
 import model.Diagnosis;
 import model.Medicaments;
 import similarity.ListTableSimilarity;
+import similarity.TableSimilarity;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
 import ucm.gaia.jcolibri.cbrcore.Attribute;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
@@ -20,6 +22,7 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNConfig;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
+import view.MainFrame;
 
 public class MedicamentApplication {
 	
@@ -38,12 +41,16 @@ public class MedicamentApplication {
 		
 		// simConfig.addMapping(new Attribute("attribute", CaseDescription.class), new Interval(5));
 
-		simConfig.addMapping(new Attribute("medicament", Medicaments.class), new ListTableSimilarity());
-	}
+		TableSimilarity table = new TableSimilarity((Arrays.asList(new String[] {"fracture_of_the_arm","fracture_of_the_leg","sprain_or_strain_arm"})));
+		table.setSimilarity("fracture_of_the_arm", "sprain_or_strain_arm", .8);
+		table.setSimilarity("sprain_or_strain_arm", "fracture_of_the_leg", .2);
+		table.setSimilarity("fracture_of_the_leg", "sprain_or_strain_arm", .2);
+		simConfig.addMapping(new Attribute("diagnose", Medicaments.class), table);	}
 
 	public void cycle(CBRQuery query) throws ExecutionException {
 		Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), query, simConfig);
 		eval = SelectCases.selectTopKRR(eval, 5);
+		MainFrame.getInstance().setRet3(eval);
 		System.out.println("\nRetrieved cases:\n");
 		for (RetrievalResult nse : eval)
 			System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
@@ -64,7 +71,7 @@ public class MedicamentApplication {
 	
 	
 
-	public void run(List<String> medicaments) {
+	public void run(String diagnose) {
 		MedicamentApplication recommender = new MedicamentApplication();
 		try {
 			recommender.configure();
@@ -74,8 +81,8 @@ public class MedicamentApplication {
 			CBRQuery query = new CBRQuery();
 
 			Medicaments m = new Medicaments();
-
-			m.setMedicament(medicaments);
+			
+			m.setDiagnose(diagnose);
 
 			query.setDescription( m );
 

@@ -47,7 +47,7 @@ public class Medicaments implements CaseComponent{
 	    public String toString() {
 	        String retVal = StringListMapper.toString(medicament);
 	        if (diagnose != null && diagnose.length() > 0)
-	            retVal += " -> " + diagnose;
+	            retVal += "=>" + diagnose;
 	        return retVal;
 	    }
 	

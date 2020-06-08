@@ -7,14 +7,29 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import cbr.MedicamentApplication;
+import model.Diagnosis;
+import model.Patient;
+import model.PhysicalExamination;
+import model.Table.PatientBase;
+import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
+import view.MainFrame;
 
 public class NovaTerapijaDijalog extends JDialog{
 	
@@ -27,8 +42,15 @@ private JPanel contentPanel = new JPanel();
 	private JPanel panel_1;
 	private JLabel label_2;
 	private JButton btnUradi;
+	private PhysicalExamination physicalExamination;
+
+	private Collection<RetrievalResult> results = new ArrayList<RetrievalResult>();
 	
-	public NovaTerapijaDijalog() {
+	private JList<String> medicamentsList;
+	private DefaultListModel<String> medicamentsListModel;
+
+	public NovaTerapijaDijalog(PhysicalExamination p) {
+		this.physicalExamination = p;
 		initComponents();
 	}
 	
@@ -83,22 +105,6 @@ private JPanel contentPanel = new JPanel();
 			gbc_comboBox.gridy = 1;
 			panel.add(combo, gbc_comboBox);
 			
-			//dugme pogledaj
-			button = new JButton("Pogledaj");
-			GridBagConstraints gbc_button = new GridBagConstraints();
-			gbc_button.gridx = 5;
-			gbc_button.gridy = 1;
-			panel.add(button, gbc_button);
-			button.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-		}
-		{
 			panel_1 = new JPanel();
 			GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 			gbc_panel_1.gridheight = 4;
@@ -111,7 +117,54 @@ private JPanel contentPanel = new JPanel();
 			label_2 = new JLabel("Preporucena dopunska ispitivanja su:");
 			label_2.setFont(new Font("Tahoma", Font.BOLD, 15));
 			panel_1.add(label_2);
+			
+			
+			
+			//dugme pogledaj
+			button = new JButton("Pogledaj");
+			GridBagConstraints gbc_button = new GridBagConstraints();
+			gbc_button.gridx = 5;
+			gbc_button.gridy = 1;
+			panel.add(button, gbc_button);
+			button.addActionListener(new ActionListener() {
+				
+				String reasoning = (String)combo.getItemAt(1);
+				List<String> solutionList = new ArrayList<String>();
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					System.out.println(reasoning);
+					if(reasoning.equals("Case based")) {
+						System.out.println("Usao sam");
+						System.out.println(physicalExamination.getDijagnoza());
+						MedicamentApplication ma = new MedicamentApplication();
+						ma.run(physicalExamination.getDijagnoza());
+						results = MainFrame.getInstance().getRet3();
+						System.out.println(results.size());
+						initList();
+						JScrollPane scrollPane = new JScrollPane(medicamentsList);
+						panel_1.add(scrollPane, BorderLayout.CENTER);
+						revalidate();
+						repaint();
+					}
+					
+				}
+			});
 		}
+//		{
+//			panel_1 = new JPanel();
+//			GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+//			gbc_panel_1.gridheight = 4;
+//			gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+//			gbc_panel_1.fill = GridBagConstraints.BOTH;
+//			gbc_panel_1.gridx = 0;
+//			gbc_panel_1.gridy = 1;
+//			contentPanel.add(panel_1, gbc_panel_1);
+//			
+//			label_2 = new JLabel("Preporucena dopunska ispitivanja su:");
+//			label_2.setFont(new Font("Tahoma", Font.BOLD, 15));
+//			panel_1.add(label_2);
+//		}
 		{
 			//dugme uradi
 			btnUradi = new JButton("Uradi");
@@ -120,7 +173,50 @@ private JPanel contentPanel = new JPanel();
 			gbc_btnUradi.gridx = 0;
 			gbc_btnUradi.gridy = 11;
 			contentPanel.add(btnUradi, gbc_btnUradi);
+			btnUradi.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					String selectedValue = medicamentsList.getSelectedValue();
+					if(selectedValue == null) {
+						return;
+					} else {
+						String parts[] = selectedValue.split("=>");
+						String retValue = parts[0];
+						System.out.println(selectedValue);
+						physicalExamination.setTerapija(retValue);
+						Patient patient = MainFrame.getInstance().getCurrent();
+						for(PhysicalExamination pe: patient.getPregledi()) {
+							if(pe.getId() == physicalExamination.getId()) {
+								pe = physicalExamination;
+								break;
+							}
+						}
+						PatientBase.getInstance().editPatient(patient.getId(),
+								patient.getFirstName(),
+								patient.getLastName(), 
+								patient.getJmbg(), 
+								patient.getDateOfBirth(), 
+								patient.getAddress(), 
+								patient.getPhoneNumber(), 
+								patient.getMr(), 
+								patient.getAnamnesis(), patient.getPregledi());
+						dispose();
+					}
+					
+				}
+			});
 		}
+	}
+	
+	public void initList() {
+		medicamentsListModel = new DefaultListModel<String>();
+		
+		for(RetrievalResult nse: results)
+			medicamentsListModel.addElement(nse.get_case().getDescription() + "=>" + nse.getEval());
+		medicamentsList = new JList<String>(medicamentsListModel);
 	}
 
 }
+

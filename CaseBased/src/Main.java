@@ -37,7 +37,9 @@ public class Main {
         // symptomeApplication.run(Arrays.asList("bruise","sprain_or_strain","fracture_of_the_arm","injury_to_the_shoulder","spinal_stenosis","brachial_neuritis","pyogenic_skin_infection","carpal_tunel_syndrome"));
         
         MainFrame.getInstance().setVisible(true);
-
+    	
+//    	MedicamentApplication m = new MedicamentApplication();
+//    	m.run("sprain_or_strain_arm");
     }
 
 }
