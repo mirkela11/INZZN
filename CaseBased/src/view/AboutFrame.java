@@ -59,8 +59,8 @@ public class AboutFrame extends JFrame {
 		JPanel aboutPanel = new JPanel();
 		mainPanel.add(aboutPanel);
 		
-		String text = "<html>Medcare aplikacija namenjena je podrsci lekarima specijalistima iz bilo koje oblasti<br> u kojoj su se speci"
-				+ "jalizovali.  Aplikacija osim što omogucava evidenciju pregleda i pracenje <br> stanje pacijenta, pruza i pomoc u predvidjanju narednih koraka "
+		String text = "<html>Medcare aplikacija namenjena je podrsci lekarima specijalistima iz oblasti ortopedije.<br>"
+				+ "Aplikacija osim što omogucava evidenciju pregleda i pracenje <br> stanje pacijenta, pruza i pomoc u predvidjanju narednih koraka "
 				+ "u postupku lecenja <br> pacijenta. Odabir odgovarajuceg dopunskog ispitivanja,  pomoc u dijagnostici,  izboru <br> terapija i odgovarajucih preventivnih pregleda "
 				+ "zasniva se cinjenicama i pravilama <br> koja postoje u relevantnim naucnim radovima i koja su prikupljena na osnovu iskustva lekara. <html>";
 		aboutPanel.setLayout(new BorderLayout(0, 0));
