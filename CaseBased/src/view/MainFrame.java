@@ -27,6 +27,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import com.ugos.jiprolog.engine.JIPQuery;
+import com.ugos.jiprolog.engine.JIPTerm;
+
 import controller.AboutActionDialog;
 import controller.NewPatientDialogAction;
 import model.Patient;
@@ -48,6 +51,7 @@ private static MainFrame instance = null;
 	private Collection<RetrievalResult> ret;
 	private Collection<RetrievalResult> ret2;
 	private Collection<RetrievalResult> ret3;
+	private JIPTerm solution;
 	
 	public static MainFrame getInstance() {
 		if(instance == null) {
@@ -236,8 +240,15 @@ private static MainFrame instance = null;
 	public void setRet3(Collection<RetrievalResult> ret3) {
 		this.ret3 = ret3;
 	}
-	
-	
+
+	public JIPTerm getSolution() {
+		return solution;
+	}
+
+	public void setSolution(JIPTerm solution) {
+		this.solution = solution;
+	}
+
 	
 	
 }

@@ -28,12 +28,19 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.ugos.jiprolog.engine.JIPQuery;
+import com.ugos.jiprolog.engine.JIPTerm;
+import com.ugos.jiprolog.engine.JIPVariable;
+
 import cbr.ProceduresCbrApplication;
+import cbr.PrologEngine;
 import model.Patient;
 import model.PhysicalExamination;
 import model.Table.PatientBase;
 import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
+import util.StringListMapper;
 import view.MainFrame;
+
 
 public class NovaProceduraDijalog extends JDialog{
 	
@@ -48,6 +55,7 @@ public class NovaProceduraDijalog extends JDialog{
 	private JButton btnUradi;
 	private PhysicalExamination physicalExamination;
 	private Collection<RetrievalResult> results = new ArrayList<RetrievalResult>();
+	private JIPTerm solution;
 	
 	private JList<String> proceduresList;
 	private DefaultListModel<String> proceduresListModel;
@@ -130,15 +138,15 @@ public class NovaProceduraDijalog extends JDialog{
 			panel.add(button, gbc_button);
 			button.addActionListener(new ActionListener() {
 				
-				String reasoning = (String) combo.getItemAt(1);
+				
 				List<String> solutionList = new ArrayList<String>();
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					String reasoning = (String) combo.getSelectedItem();
 					System.out.println(reasoning);
 					if(reasoning.equals("Case based")) {
 
-						System.out.println("UNUTRA SAM");
 						ProceduresCbrApplication pcbr = new ProceduresCbrApplication();
 						pcbr.run(physicalExamination.getSimptomi());
 						results = MainFrame.getInstance().getRet();
@@ -149,6 +157,16 @@ public class NovaProceduraDijalog extends JDialog{
 						revalidate();
 						repaint();
 					
+					} else if(reasoning.equals("Rule based")) {
+						System.out.println("Usao u rule based");
+						PrologEngine prologEngine = new PrologEngine();
+						prologEngine.run_procedures(physicalExamination.getSimptomi());
+						solution = MainFrame.getInstance().getSolution();
+						initList1();
+						JScrollPane scrollPane = new JScrollPane(proceduresList);
+						panel_1.add(scrollPane, BorderLayout.CENTER);
+						revalidate();
+						repaint();
 					}
 				}
 			});
@@ -171,19 +189,35 @@ public class NovaProceduraDijalog extends JDialog{
 					if(selectedValue == null) {
 						return;
 					} else {
-						String[] parts = selectedValue.split("=>");
-						String retValue = parts[1];
-						physicalExamination.setProcedura(retValue);
-						Patient patient = MainFrame.getInstance().getCurrent();	
-						for(PhysicalExamination pe : patient.getPregledi())  {
-							if(pe.getId() == physicalExamination.getId()) {
-								pe = physicalExamination;
-								break;
+						if(!results.isEmpty()) {
+							String[] parts = selectedValue.split("=>");
+							String retValue = parts[1];
+							physicalExamination.setProcedura(retValue);
+							Patient patient = MainFrame.getInstance().getCurrent();	
+							for(PhysicalExamination pe : patient.getPregledi())  {
+								if(pe.getId() == physicalExamination.getId()) {
+									pe = physicalExamination;
+									break;
+								}
 							}
+							
+							PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
+							dispose();
+						} else {
+							String ret = selectedValue;
+							physicalExamination.setProcedura(ret);
+							Patient patient = MainFrame.getInstance().getCurrent();	
+							for(PhysicalExamination pe : patient.getPregledi())  {
+								if(pe.getId() == physicalExamination.getId()) {
+									pe = physicalExamination;
+									break;
+								}
+							}
+							
+							PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
+							dispose();
+							
 						}
-						
-						PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
-						dispose();
 					}
 										
 				}
@@ -198,6 +232,32 @@ public class NovaProceduraDijalog extends JDialog{
 		
 		for (RetrievalResult nse : results)
 			proceduresListModel.addElement(nse.get_case().getDescription() + "=>" + nse.getEval());
+		
+		proceduresList = new JList<String>(proceduresListModel);
+	}
+	
+	public void initList1() {
+		
+		proceduresListModel = new DefaultListModel<String>();
+		
+		
+		System.out.println("solution: " + solution);
+		  if(solution != null) {
+			for (JIPVariable var: solution.getVariables()) {
+				System.out.println("Ispod variable");
+				System.out.println(var.getValue());
+				String tmp = var.getValue().toString();
+				if(tmp.equals("-(plain_x,ray)")) {
+					tmp = "plain_x-ray";
+				}
+				proceduresListModel.addElement(tmp);
+			}
+		  } else {
+			  String tmp = "Nemamo zakljucivanje po Rule based, molimo vas izaberite Case-based nacin";
+			  proceduresListModel.addElement(tmp);
+		  }
+		
+		
 		
 		proceduresList = new JList<String>(proceduresListModel);
 	}
