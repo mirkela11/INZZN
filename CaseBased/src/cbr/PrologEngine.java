@@ -35,4 +35,21 @@ public class PrologEngine {
 		
 
 	}
+	
+	public void run_diagnosis(List<String> symtomes) {
+		JIPEngine engine2 = new JIPEngine();
+		engine2.consultFile("diagnosis.pl");
+		String tmp = StringListMapper.toString(symtomes);
+		JIPQuery query = engine2.openSynchronousQuery("find_diagnose(" + tmp + ",X)");
+		System.out.println("find_diagnose(" + tmp + ",X)");
+		
+		JIPTerm solution2 = query.nextSolution();
+		System.out.println("solution: " + solution2);
+		MainFrame.getInstance().setSolution2(solution2);
+		if(solution2 != null) {
+			for(JIPVariable var: solution2.getVariables()) {
+				System.out.println(var.getName() + "=" + var.getValue());
+			}
+		}
+	}
 }

@@ -5,6 +5,7 @@ chronic_knee_pain;knee_pain,knee_swelling
 
 osteoarthritis;knee_pain
 osteoarthritis;knee_pain,leg_pain
+osteoarthritis;knee_pain,leg_pain,hip_pain
 
 spinal_stenosis;shoulder_pain,neck_pain,back_pain,arm_pain
 

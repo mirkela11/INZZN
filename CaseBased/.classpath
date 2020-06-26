@@ -6,6 +6,6 @@
 	<classpathentry kind="lib" path="lib/log4j-api-2.11.1.jar"/>
 	<classpathentry kind="lib" path="lib/synthetica.jar"/>
 	<classpathentry kind="lib" path="lib/syntheticaAluOxide.jar"/>
-	<classpathentry kind="lib" path="G:/Inzenjering znanja/INZZN/CaseBased/lib/jiprolog-4.1.6.1.jar"/>
+	<classpathentry kind="lib" path="F:/INZENJERING ZNANJA/Primeri/02 Prolog/SampleProject/jiprolog-4.1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
