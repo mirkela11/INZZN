@@ -127,3 +127,5 @@ problems_with_movement;hematologic_tests
 problems_with_movement;glucose_measurement
 problems_with_movement,ankle_swelling,ankle_pain;physical_therapy_exercises
 problems_with_movement,ankle_swelling,ankle_pain;radiographic_imaging_procedure
+arm_swelling;complete_blood_count
+arm_swelling,arm_pain;plain_x-ray
