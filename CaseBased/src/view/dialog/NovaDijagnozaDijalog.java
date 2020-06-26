@@ -192,7 +192,7 @@ public class NovaDijagnozaDijalog extends JDialog{
 								}
 							}
 							PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
-							PatientBase.getInstance().writeToBaseDiagnosis(physicalExamination.getDijagnoza() + ";" + physicalExamination.getSimptomi());
+							PatientBase.getInstance().writeToBaseDiagnosis(physicalExamination.getDijagnoza() + ";" + StringListMapper.toString(physicalExamination.getSimptomi()));
 							dispose();
 						}
 						else {
@@ -207,7 +207,7 @@ public class NovaDijagnozaDijalog extends JDialog{
 							}
 							
 							PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
-							PatientBase.getInstance().writeToBaseDiagnosis(physicalExamination.getDijagnoza() + ";" + physicalExamination.getSimptomi());
+							PatientBase.getInstance().writeToBaseDiagnosis(physicalExamination.getDijagnoza() + ";" + StringListMapper.toString(physicalExamination.getSimptomi()));
 							dispose();
 						}
 					}
