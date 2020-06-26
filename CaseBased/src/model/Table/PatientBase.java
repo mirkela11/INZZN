@@ -1,8 +1,10 @@
 package model.Table;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -183,6 +185,21 @@ public class PatientBase implements Serializable {
 		}catch (ClassNotFoundException c) {
 			c.printStackTrace();
 		}
+	}
+	
+	public void writeToBaseProcedures(String s) {
+		try {
+			BufferedWriter output = new BufferedWriter(new FileWriter("data/Procedures.csv", true));
+			System.out.println("Ispod string");
+			System.out.println(s);
+			output.append("\n" + s);
+			output.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(e.toString());
+		}
+		
 	}
 
 	public ArrayList<Diagnosis> getDiagnosis_list() {

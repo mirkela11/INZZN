@@ -202,6 +202,7 @@ public class NovaProceduraDijalog extends JDialog{
 							}
 							
 							PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
+							PatientBase.getInstance().writeToBaseProcedures(StringListMapper.toString(physicalExamination.getSimptomi()) + ";" + physicalExamination.getProcedura());
 							dispose();
 						} else {
 							String ret = selectedValue;
@@ -215,6 +216,7 @@ public class NovaProceduraDijalog extends JDialog{
 							}
 							
 							PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
+							PatientBase.getInstance().writeToBaseProcedures(StringListMapper.toString(physicalExamination.getSimptomi()) + ";" + physicalExamination.getProcedura());
 							dispose();
 							
 						}
