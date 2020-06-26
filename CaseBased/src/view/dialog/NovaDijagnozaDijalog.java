@@ -22,11 +22,16 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.ugos.jiprolog.engine.JIPTerm;
+import com.ugos.jiprolog.engine.JIPVariable;
+
 import cbr.DiagnosisApplication;
+import cbr.PrologEngine;
 import model.Patient;
 import model.PhysicalExamination;
 import model.Table.PatientBase;
 import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
+import util.StringListMapper;
 import view.MainFrame;
 
 public class NovaDijagnozaDijalog extends JDialog{
@@ -42,6 +47,7 @@ public class NovaDijagnozaDijalog extends JDialog{
 	private JButton btnUradi;
 	private PhysicalExamination physicalExamination;
 	private Collection<RetrievalResult> results = new ArrayList<RetrievalResult>();
+	private JIPTerm solution2;
 	
 	private JList<String> diagnosisList;
 	private DefaultListModel<String> diagnosisListModel;
@@ -123,12 +129,12 @@ public class NovaDijagnozaDijalog extends JDialog{
 			panel.add(button, gbc_button);
 			button.addActionListener(new ActionListener() {
 				
-				String reasoning = (String) combo.getItemAt(1);
 				List<String> solutionList = new ArrayList<String>();
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					String reasoning = (String) combo.getSelectedItem();
 					System.out.println(reasoning);
 					if(reasoning.equals("Case based")) {
 						
@@ -137,6 +143,17 @@ public class NovaDijagnozaDijalog extends JDialog{
 						results = MainFrame.getInstance().getRet2();
 						System.out.println(results.size());
 						initList();
+						JScrollPane scrollPane = new JScrollPane(diagnosisList);
+						panel_1.add(scrollPane, BorderLayout.CENTER);
+						revalidate();
+						repaint();
+					}
+					else if(reasoning.equals("Rule based")) {
+						System.out.println("Usao u rule based");
+						PrologEngine prologEngine = new PrologEngine();
+						prologEngine.run_diagnosis(physicalExamination.getSimptomi());
+						solution2 = MainFrame.getInstance().getSolution2();
+						initList1();
 						JScrollPane scrollPane = new JScrollPane(diagnosisList);
 						panel_1.add(scrollPane, BorderLayout.CENTER);
 						revalidate();
@@ -159,22 +176,40 @@ public class NovaDijagnozaDijalog extends JDialog{
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					String selectedValue = diagnosisList.getSelectedValue();
-					System.out.println(selectedValue);
+					//System.out.println(selectedValue);
 					if(selectedValue == null) {
 						return;
 					}else {
-						String[] parts = selectedValue.split("=>");
-						String retValue = parts[1];
-						physicalExamination.setDijagnoza(retValue);
-						Patient patient = MainFrame.getInstance().getCurrent();
-						for(PhysicalExamination pe : patient.getPregledi()) {
-							if(pe.getId() == physicalExamination.getId()) {
-								pe = physicalExamination;
-								break;
+						if(!results.isEmpty()) {
+							String[] parts = selectedValue.split("=>");
+							String retValue = parts[1];
+							physicalExamination.setDijagnoza(retValue);
+							Patient patient = MainFrame.getInstance().getCurrent();
+							for(PhysicalExamination pe : patient.getPregledi()) {
+								if(pe.getId() == physicalExamination.getId()) {
+									pe = physicalExamination;
+									break;
+								}
 							}
+							PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
+							PatientBase.getInstance().writeToBaseDiagnosis(physicalExamination.getDijagnoza() + ";" + physicalExamination.getSimptomi());
+							dispose();
 						}
-						PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
-						dispose();
+						else {
+							String ret = selectedValue;
+							physicalExamination.setDijagnoza(ret);
+							Patient patient = MainFrame.getInstance().getCurrent();
+							for(PhysicalExamination pe : patient.getPregledi()) {
+								if(pe.getId() == physicalExamination.getId()) {
+									pe = physicalExamination;
+									break;
+								}
+							}
+							
+							PatientBase.getInstance().editPatient(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAddress(), patient.getDateOfBirth(), patient.getAddress(), patient.getPhoneNumber(),patient.getMr(), patient.getAnamnesis(), patient.getPregledi());
+							PatientBase.getInstance().writeToBaseDiagnosis(physicalExamination.getDijagnoza() + ";" + physicalExamination.getSimptomi());
+							dispose();
+						}
 					}
 				}
 			});
@@ -187,6 +222,24 @@ public class NovaDijagnozaDijalog extends JDialog{
 		
 		for (RetrievalResult nse : results)
 			diagnosisListModel.addElement(nse.get_case().getDescription() + "=>" + nse.getEval());
+		
+		diagnosisList = new JList<String>(diagnosisListModel);
+	}
+	
+	public void initList1() {
+		
+		diagnosisListModel = new DefaultListModel<String>();
+		if(solution2 != null) {
+			for(JIPVariable var: solution2.getVariables()) {
+				String tmp = var.getValue().toString();
+				
+				diagnosisListModel.addElement(tmp);
+			}
+		}
+		else {
+			String tmp = "Nemamo zakljucivanje po Rule based, molimo vas izaberite Case-based nacin";
+			diagnosisListModel.addElement(tmp);
+		}
 		
 		diagnosisList = new JList<String>(diagnosisListModel);
 	}

@@ -224,6 +224,8 @@ public class SelectSymptomsForPhysicalExaminationDialog extends JDialog{
 						rightList.clear();
 						rightList.addAll(set);
 						
+						rightList.sort(null);
+						
 						physicalExamination.setSimptomi(rightList);
 						Patient patient = MainFrame.getInstance().getCurrent();	
 						for(PhysicalExamination pe : patient.getPregledi())  {

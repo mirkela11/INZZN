@@ -156,6 +156,7 @@ public class PatientBase implements Serializable {
 		}
 	}
 	
+	
 	public void serialize() {
 		try {
 			FileOutputStream fProf = new FileOutputStream("patients.ser");
@@ -200,6 +201,20 @@ public class PatientBase implements Serializable {
 			System.out.println(e.toString());
 		}
 		
+	}
+	
+	public void writeToBaseDiagnosis(String s) {
+		try {
+			BufferedWriter output = new BufferedWriter(new FileWriter("data/Diagnosis.csv", true));
+//			System.out.println("Ispod string");
+//			System.out.println(s);
+			output.append("\n" + s);
+			output.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			System.out.println(e.toString());
+		}
 	}
 
 	public ArrayList<Diagnosis> getDiagnosis_list() {

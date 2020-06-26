@@ -52,6 +52,7 @@ private static MainFrame instance = null;
 	private Collection<RetrievalResult> ret2;
 	private Collection<RetrievalResult> ret3;
 	private JIPTerm solution;
+	private JIPTerm solution2;
 	
 	public static MainFrame getInstance() {
 		if(instance == null) {
@@ -249,6 +250,12 @@ private static MainFrame instance = null;
 		this.solution = solution;
 	}
 
-	
-	
+	public JIPTerm getSolution2() {
+		return solution2;
+	}
+
+	public void setSolution2(JIPTerm solution2) {
+		this.solution2 = solution2;
+	}
+
 }
