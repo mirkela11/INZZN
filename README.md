@@ -5,6 +5,6 @@ Veljko Vuković RA52/2016,
 Nemanja Mirković RA216/2016,
 Nikola Zejak RA53/2016
 
-Aplikacija za korišćenje se nalazi u folederu CaseBased.
+Aplikacija za pomoc lekarima specijalistima iz oblasti Ortopedije se nalazi u folederu CaseBased.
 Importovati je u eclipse razvojno okruženje zajedno sa bibliotekom jiprolog.
 Pokrenuti na CTRL+F11.
