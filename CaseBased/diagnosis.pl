@@ -40,7 +40,7 @@ find_diagnose(FP, FS, fracture_of_the_foot) :- compare(=, FP, foot_or_toe_pain),
 find_diagnose(AP, FP, fracture_of_the_foot) :- compare(=, AP, ankle_pain), compare(=, FP, foot_or_toe_pain),!.
 find_diagnose(WP, WS, injury_to_the_arm) :- compare(=, WP, wrist_pain), compare(=, WS, wrist_swelling),!.
 find_diagnose(AP, AS, fracture_of_the_ankle) :- compare(=, AP, ankle_pain), compare(=, AS, ankle_swelling),!.
-
+find_diagnose(AP, AS, injury_to_the_arm) :- compare(=, AP, arm_pain), compare(=, AS, arm_stiffnes_or_tightness),!.
 
 find_diagnose(AP, injury_to_the_leg) :- compare(=, AP, ankle_pain),!.
 find_diagnose(FP, injury_to_the_leg) :- compare(=, FP, foot_or_toe_pain),!.
